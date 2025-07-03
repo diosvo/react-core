@@ -1,3 +1,3 @@
 export default function Home() {
-  return <>geistMono</>;
+  return <>Hello World!</>;
 }
