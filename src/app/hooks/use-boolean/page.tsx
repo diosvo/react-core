@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 
 import { Button } from '@/components/ui/button';
-import useBoolean from './useBoolean';
+import useBoolean from './use-boolean';
 
 export default function useBooleanPage() {
   const { value, setTrue, setFalse } = useBoolean();
