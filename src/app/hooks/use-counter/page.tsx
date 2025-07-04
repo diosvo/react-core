@@ -6,17 +6,17 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
-import useBoolean from './use-boolean';
+import useCounter from './use-counter';
 
-export default function useBooleanPage() {
-  const { value, setTrue, setFalse } = useBoolean();
+export default function useCounterPage() {
+  const { count, increment, decrement, reset } = useCounter();
 
   return (
     <div>
       <div className="space-y-1">
-        <h4 className="text-lg leading-none font-medium">useBoolean</h4>
+        <h4 className="text-lg leading-none font-medium">useCounter</h4>
         <p className="text-muted-foreground">
-          Manages boolean state with memoized{' '}
+          Manages counter state with memoized{' '}
           <Badge variant="secondary" asChild>
             <Link
               href="https://react.dev/reference/react/useCallback"
@@ -29,15 +29,16 @@ export default function useBooleanPage() {
         </p>
       </div>
       <Separator className="my-4" />
-      <div className="flex items-center gap-2">
-        <Button
-          variant="destructive"
-          onClick={() => (value ? setFalse() : setTrue())}
-        >
-          Toggle
+      <div className="flex items-center gap-1 mb-3">
+        <Button onClick={increment}>Increment</Button>
+        <Button variant="outline" onClick={decrement}>
+          Decrement
         </Button>
-        <Badge>{value ? 'enabled' : 'disabled'}</Badge>
+        <Button variant="secondary" onClick={reset}>
+          Reset
+        </Button>
       </div>
+      <Badge variant="destructive">Count: {count}</Badge>
     </div>
   );
 }
