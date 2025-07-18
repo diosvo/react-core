@@ -30,7 +30,13 @@ const sidebarData = [
   {
     title: 'Hooks',
     icon: Webhook,
-    items: ['useBoolean', 'useClickAnywhere', 'useCounter', 'useCycle'],
+    items: [
+      'useBoolean',
+      'useClickAnywhere',
+      'useCounter',
+      'useCycle',
+      'useDefault',
+    ],
   },
   {
     title: 'UI',
