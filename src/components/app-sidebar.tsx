@@ -36,6 +36,7 @@ const sidebarData = [
       'useCounter',
       'useCycle',
       'useDefault',
+      'useEffectOnce',
     ],
   },
   {
