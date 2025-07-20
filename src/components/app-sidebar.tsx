@@ -37,6 +37,7 @@ const sidebarData = [
       'useCycle',
       'useDefault',
       'useEffectOnce',
+      'useFocus',
     ],
   },
   {
