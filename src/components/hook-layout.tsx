@@ -15,7 +15,7 @@ export default function HookLayout({
     <div>
       <div className="space-y-1">
         <h4 className="text-lg leading-none font-medium">{title}</h4>
-        <p className="text-muted-foreground">{description}</p>
+        <div className="text-muted-foreground">{description}</div>
       </div>
       <Separator className="my-4" />
       {children}
