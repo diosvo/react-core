@@ -1,5 +1,3 @@
-'use client';
-
 import { Ref, useCallback, useRef } from 'react';
 
 export default function useFocus<T extends HTMLInputElement>(): [

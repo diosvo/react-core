@@ -39,6 +39,7 @@ const sidebarData = [
       'useEffectOnce',
       'useFocus',
       'usePrevious',
+      'useStateWithReset',
     ],
   },
   {
