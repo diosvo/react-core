@@ -40,6 +40,7 @@ const sidebarData = [
       'useFocus',
       'usePrevious',
       'useStateWithReset',
+      'useToggle',
     ],
   },
   {
