@@ -46,7 +46,7 @@ const sidebarData = [
   {
     title: 'UI',
     icon: Palette,
-    items: [],
+    items: ['Accordion'],
   },
 ] as const;
 
@@ -57,25 +57,25 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarMenu>
-          {sidebarData.map((item) => (
+          {sidebarData.map(({ title, items, icon: Icon }) => (
             <Collapsible
-              key={item.title}
-              defaultOpen={item.title === 'Hooks'}
+              key={title}
+              defaultOpen={title === 'UI'}
               className="group/collapsible"
-              disabled={!item.items.length}
+              disabled={!items.length}
             >
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
-                    <item.icon />
-                    <span>{item.title}</span>
+                    <Icon />
+                    <span>{title}</span>
                     <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {item.items.map((subItem) => {
-                      const subItemPath = `/${item.title.toLowerCase()}/${subItem
+                    {items.map((subItem) => {
+                      const subItemPath = `/${title.toLowerCase()}/${subItem
                         .replace(/([a-z])([A-Z])/g, '$1-$2')
                         .toLowerCase()}`;
                       const isSubItemActive = pathname === subItemPath;
