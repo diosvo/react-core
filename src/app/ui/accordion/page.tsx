@@ -1,8 +1,8 @@
 import UiLayout from '@/components/ui-layout';
+import { SECTIONS } from '@/lib/data';
 import Accordion from '.';
 
 export default function AccordionPage() {
-  // improve the user experience of the application
   return (
     <UiLayout
       title={
@@ -40,36 +40,15 @@ export default function AccordionPage() {
           </li>
           <li>
             · ARIA roles: <code>aria-expanded</code>, <code>aria-controls</code>
+            , <code>aria-labelledby</code>
           </li>
           <li>
             · State: <code>data-accordion-value</code>
           </li>
-          <li>· Listen for Keyboard Events</li>
         </ul>
       }
     >
-      <Accordion
-        sections={[
-          {
-            value: 'htmtl',
-            title: 'HTML',
-            content:
-              'The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.',
-          },
-          {
-            value: 'css',
-            title: 'CSS',
-            content:
-              'Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML.',
-          },
-          {
-            value: 'javascript',
-            title: 'JavaScript',
-            content:
-              'JavaScript, often abbreviated as JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS',
-          },
-        ]}
-      />
+      <Accordion sections={SECTIONS} />
     </UiLayout>
   );
 }

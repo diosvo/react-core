@@ -2,6 +2,7 @@
 
 import { useId, useState } from 'react';
 
+import { Section } from '@/lib/models';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 function getAccordionHeaderId(id: string, value: string) {
@@ -12,11 +13,7 @@ function getAccordionPanelId(id: string, value: string) {
   return id + '-panel-' + value;
 }
 
-export default function Accordion({
-  sections,
-}: {
-  sections: Array<{ value: string; title: string; content: string }>;
-}) {
+export default function Accordion({ sections }: { sections: Array<Section> }) {
   const accordionId = useId();
 
   // Set to keep track of the sections which are expanded
