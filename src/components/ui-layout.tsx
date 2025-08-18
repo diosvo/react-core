@@ -18,8 +18,8 @@ export default function UiLayout({
   children,
 }: {
   title: ReactNode;
-  description: ReactNode;
   children: ReactNode;
+  description?: ReactNode;
   definition?: ReactNode;
   implementation?: ReactNode;
 }) {

@@ -5,7 +5,6 @@ export default function ContactFormPage() {
   return (
     <UiLayout
       title="Contact Form"
-      definition={<ul> </ul>}
       description={
         <ul>
           <li>

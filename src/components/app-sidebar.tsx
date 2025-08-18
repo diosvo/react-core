@@ -46,7 +46,7 @@ const sidebarData = [
   {
     title: 'UI',
     icon: Palette,
-    items: ['Accordion', 'ContactForm', 'Tabs'],
+    items: ['Accordion', 'ContactForm', 'Tabs', 'Table'],
   },
 ] as const;
 
