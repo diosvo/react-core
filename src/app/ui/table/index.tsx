@@ -8,109 +8,98 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
-import { Sort, SortDirection, User } from '@/lib/models';
+import { Columns, Sort, SortDirection } from '@/lib/models';
 
-function sortUsers(
-  users: Array<User>,
-  field: string,
+function sortFn<T>(
+  data: Array<T>,
+  columns: Columns<T>,
+  field: Nullish<string>,
   direction: SortDirection
 ) {
   // 👀 Reason for cloning the the array
   // Immutability and React State: Directly mutate an array in state using methods like Array.prototype.sort(), React might not detect the change because the array's reference remains the same, even though its contents have been reordered.
-  const usersClone = [...users];
+  const dataClone = [...data];
+  const comparator = columns.find(({ key }) => field === key)?.comparator;
 
-  switch (field) {
-    case 'id':
-    case 'age':
-      return usersClone.sort((a, b) =>
-        direction === Sort.ASC ? a[field] - b[field] : b[field] - a[field]
-      );
-    case 'name':
-    case 'occupation':
-      return usersClone.sort((a, b) =>
-        direction === Sort.ASC
-          ? a[field].localeCompare(b[field])
-          : b[field].localeCompare(a[field])
-      );
-    default:
-      return usersClone;
-  }
+  if (comparator == null) return dataClone;
+
+  return dataClone.sort((a, b) => comparator(a, b, direction));
 }
 
-function paginateUsers(users: Array<User>, page: number, pageSize: number) {
+function paginateFn<T>(data: Array<T>, page: number, pageSize: number) {
   const start = (page - 1) * pageSize;
-  const end = Math.min(start + pageSize, users.length);
+  const end = Math.min(start + pageSize, data.length);
 
-  const currentData = users.slice(start, end);
+  const currentData = data.slice(start, end);
 
   return { start, end, currentData };
 }
 
-export default function DataTable({ users }: { users: Array<User> }) {
+export default function DataTable<T extends { id: number }>({
+  data,
+  columns,
+}: Readonly<{
+  data: Array<T>;
+  columns: Columns<T>;
+}>) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
 
   const [sortField, setSortField] = useState<string>('id');
   const [sortDirection, setSortDirection] = useState<SortDirection>(Sort.ASC);
 
-  const sortedUsers = sortUsers(users, sortField, sortDirection);
-  const { start, end, currentData } = paginateUsers(
-    sortedUsers,
-    page,
-    pageSize
-  );
+  const sortedData = sortFn(data, columns, sortField, sortDirection);
+  const { start, end, currentData } = paginateFn(sortedData, page, pageSize);
 
   return (
     <table className="w-full">
       <thead className="align-top">
         <tr>
-          {['ID', 'Name', 'Age', 'Occupation'].map((header) => {
-            const key = header.toLowerCase();
-            return (
-              <th
-                key={key}
-                className="p-2 text-start hover:cursor-pointer hover:text-blue-600"
-                onClick={() => {
-                  if (sortField !== key) {
-                    setSortField(key);
-                    setSortDirection(Sort.ASC);
-                  } else {
-                    // Sort in the same field
-                    return sortDirection === Sort.ASC
-                      ? setSortDirection(Sort.DESC)
-                      : setSortDirection(Sort.ASC);
-                  }
-                  setPage(1);
-                }}
-              >
-                <span className="flex items-center gap-2">
-                  {header}
-                  <span hidden={sortField !== key}>
-                    {sortDirection === Sort.ASC ? (
-                      <ChevronUp size={14} />
-                    ) : (
-                      <ChevronDown size={14} />
-                    )}
-                  </span>
+          {columns.map(({ label, key }) => (
+            <th
+              key={key}
+              className="p-2 text-start hover:cursor-pointer hover:text-blue-600"
+              onClick={() => {
+                if (sortField !== key) {
+                  setSortField(key);
+                  setSortDirection(Sort.ASC);
+                } else {
+                  // Sort in the same field
+                  return sortDirection === Sort.ASC
+                    ? setSortDirection(Sort.DESC)
+                    : setSortDirection(Sort.ASC);
+                }
+                setPage(1);
+              }}
+            >
+              <span className="flex items-center gap-2">
+                {label}
+                <span hidden={sortField !== key}>
+                  {sortDirection === Sort.ASC ? (
+                    <ChevronUp size={14} />
+                  ) : (
+                    <ChevronDown size={14} />
+                  )}
                 </span>
-              </th>
-            );
-          })}
+              </span>
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody className="border-y-1 border-b-gray-200">
-        {currentData.map((user) => (
-          <tr key={user.id}>
-            <td className="p-2 text-start">{user.id}</td>
-            <td className="p-2 text-start">{user.name}</td>
-            <td className="p-2 text-start">{user.age}</td>
-            <td className="p-2 text-start">{user.occupation}</td>
+        {currentData.map((item) => (
+          <tr key={item.id}>
+            {columns.map(({ key, renderCell }) => (
+              <td key={key} className="p-2 text-start">
+                {renderCell(item)}
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>
       <tfoot>
         <tr>
-          <td className="gap-8 p-2" colSpan={4}>
+          <td className="gap-8 p-2" colSpan={columns.length}>
             <div className="flex justify-end items-center gap-8">
               <div>
                 <span className="text-gray-600">Rows per page:</span>
@@ -134,7 +123,7 @@ export default function DataTable({ users }: { users: Array<User> }) {
                 </select>
               </div>
               <div>
-                {start + 1}-{end} of {users.length}
+                {start + 1}-{end} of {data.length}
               </div>
               <button
                 className="p-2 hover:bg-accent hover:cursor-pointer disabled:cursor-not-allowed disabled:bg-accent"
@@ -146,7 +135,7 @@ export default function DataTable({ users }: { users: Array<User> }) {
               <button
                 className="p-2 hover:bg-accent hover:cursor-pointer disabled:cursor-not-allowed disabled:bg-accent"
                 onClick={() => setPage(page + 1)}
-                disabled={end >= users.length}
+                disabled={end >= data.length}
               >
                 <ChevronRight size={18} />
               </button>
