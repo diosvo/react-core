@@ -38,6 +38,7 @@ const sidebarData = [
       'useDefault',
       'useEffectOnce',
       'useFocus',
+      'useHover',
       'usePrevious',
       'useStateWithReset',
       'useToggle',

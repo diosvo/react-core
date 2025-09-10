@@ -1,0 +1,29 @@
+import { act, render, renderHook } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import UseHoverPage from './page';
+import useHover from './use-hover';
+
+describe('useHoverPage', () => {
+  test('return values', () => {
+    const { result } = renderHook(() => useHover());
+
+    expect(Array.isArray(result.current)).toBe(true);
+    expect(result.current.length).toBe(2);
+    expect(typeof result.current[0]).toBe('function');
+    expect(typeof result.current[1]).toBe('boolean');
+  });
+
+  test('hover', async () => {
+    const user = userEvent.setup();
+
+    const page = render(<UseHoverPage />);
+    const area = page.getByTestId('area');
+
+    await act(() => user.hover(area));
+    expect(page.queryByTestId('hovering')).not.toBeNull();
+
+    await act(() => user.unhover(area));
+    expect(page.queryByTestId('hovering')).toBeNull();
+  });
+});

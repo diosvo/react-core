@@ -104,7 +104,7 @@ export default function TablePage() {
           <li>
             · Define <code>columns</code> configuration
           </li>
-          <li>· Sorting - Use column's comparator function</li>
+          <li>· Sorting - Use column&apos;s comparator function</li>
           <li>
             · <code>renderCell()</code> - determines how to render the cell data
             for that column
