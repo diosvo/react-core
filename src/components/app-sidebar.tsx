@@ -25,7 +25,7 @@ const sidebarData = [
   {
     title: 'Learn',
     icon: Shapes,
-    items: [],
+    items: ['Patterns'],
   },
   {
     title: 'Hooks',
