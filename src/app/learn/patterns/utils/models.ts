@@ -10,3 +10,7 @@ export interface IListing {
   rooms: number;
   sqft: number;
 }
+
+export interface WithLoaderProps<T> {
+  data: T;
+}
