@@ -5,6 +5,8 @@ import TemperatureConverter, {
   Kelvin,
 } from './components/TemperatureConverter';
 import Listings from './presentational/Listings';
+import ListingsInput from './presentational/ListingsInput';
+import { ListingsProvider } from './presentational/ListingsProvider';
 
 export default function PatternsPage() {
   return (
@@ -31,8 +33,20 @@ export default function PatternsPage() {
           >
             Hooks
           </a>
+          {' - '}
+          <a
+            href="https://javascriptpatterns.vercel.app/patterns/react-patterns/provider-pattern"
+            target="_blank"
+          >
+            Provider
+          </a>
         </h1>
-        <Listings />
+        <ListingsProvider>
+          <div className="flex flex-col items-center gap-4">
+            <ListingsInput />
+            <Listings />
+          </div>
+        </ListingsProvider>
       </div>
       <div>
         <h1 className="text-xl font-bold text-gray-800 mb-6 border-b border-gray-200 pb-4">
