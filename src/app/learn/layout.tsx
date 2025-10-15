@@ -3,5 +3,5 @@ export default function LearnLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div>{children}</div>;
+  return <div className="max-w-7xl mx-auto">{children}</div>;
 }

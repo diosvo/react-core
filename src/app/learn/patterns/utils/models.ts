@@ -14,3 +14,7 @@ export interface IListing {
 export interface WithLoaderProps<T> {
   data: T;
 }
+
+export interface Temperature {
+  value: number;
+}
