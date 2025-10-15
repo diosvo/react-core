@@ -7,7 +7,9 @@ import { IListing, WithLoaderProps } from '../utils/models';
 function ListingsContainerComponent(
   props: WithLoaderProps<{ listings: Array<IListing> }>
 ) {
-  return <Listings listings={props.data.listings} />;
+  // HOC
+  // return <Listings listings={props.data.listings} />;
+  return <Listings />;
 }
 
 export default withLoader(
