@@ -1,26 +1,25 @@
 'use client';
 
 import {
-  createContext,
   DetailedHTMLProps,
   Dispatch,
   InputHTMLAttributes,
   PropsWithChildren,
   SetStateAction,
   useCallback,
-  useContext,
   useState,
 } from 'react';
 
+import { createContext } from '@/components/create-context';
+
 interface FlyoutProps {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
   toggle: () => void;
+  setValue: Dispatch<SetStateAction<string>>;
 }
 
-const FlyoutContext = createContext<FlyoutProps>({} as FlyoutProps);
+const [useContext, Provider] = createContext<FlyoutProps>();
 
 export function FlyOut(props: PropsWithChildren) {
   const [open, setOpen] = useState(false);
@@ -29,9 +28,9 @@ export function FlyOut(props: PropsWithChildren) {
   const toggle = useCallback(() => setOpen((state) => !state), []);
 
   return (
-    <FlyoutContext value={{ open, setOpen, value, setValue, toggle }}>
+    <Provider value={{ open, value, setValue, toggle }}>
       <div className="relative w-full max-w-xl">{props.children}</div>
-    </FlyoutContext>
+    </Provider>
   );
 }
 
@@ -41,7 +40,7 @@ function Input(
     HTMLInputElement
   >
 ) {
-  const { value, toggle, setValue } = useContext(FlyoutContext);
+  const { value, toggle, setValue } = useContext();
 
   return (
     <input
@@ -58,7 +57,7 @@ function Input(
 }
 
 function List(props: PropsWithChildren) {
-  const { open } = useContext(FlyoutContext);
+  const { open } = useContext();
 
   return (
     open && (
@@ -70,7 +69,7 @@ function List(props: PropsWithChildren) {
 }
 
 function Item(props: PropsWithChildren & { value: string }) {
-  const { setValue } = useContext(FlyoutContext);
+  const { setValue } = useContext();
 
   return (
     <li

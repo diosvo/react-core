@@ -1,25 +1,21 @@
 'use client';
 
-import { createContext, PropsWithChildren, useContext } from 'react';
+import { PropsWithChildren } from 'react';
 
+import { createContext } from '@/components/create-context';
 import useListings from '@/hooks/use-listings';
+
 import LoadingSpinner from '../components/LoadingSpinner';
 import { IListing } from '../utils/models';
 
-const ListingsContext = createContext<Array<IListing>>([]);
+const [useContext, Provider] = createContext<Array<IListing>>();
 
 export function ListingsProvider(props: PropsWithChildren) {
   const listings = useListings();
 
   if (!listings) return <LoadingSpinner />;
 
-  return (
-    <ListingsContext value={listings.listings}>
-      {props.children}
-    </ListingsContext>
-  );
+  return <Provider value={listings.listings}>{props.children}</Provider>;
 }
 
-export function useListingsContext() {
-  return useContext(ListingsContext);
-}
+export const useListingsContext = useContext;

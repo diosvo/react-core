@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { Separator } from '@/components/ui/separator';
 
@@ -6,11 +6,10 @@ export default function HookLayout({
   title,
   description,
   children,
-}: {
+}: PropsWithChildren<{
   title: string;
-  description: ReactNode;
-  children: ReactNode;
-}) {
+  description: React.ReactNode;
+}>) {
   return (
     <div>
       <div className="space-y-1">
