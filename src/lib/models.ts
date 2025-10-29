@@ -1,10 +1,10 @@
 import React from 'react';
 
-export interface Section {
+export type Sections = Array<{
   value: string;
   title: string;
   content: string;
-}
+}>;
 
 export interface User {
   id: number;

@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react';
 
-import { Section } from '@/lib/models';
+import { Sections } from '@/lib/models';
 
 function getTabItemId(id: string, value: string) {
   return id + '-tab-' + value;
@@ -12,7 +12,7 @@ function getTabPanelId(id: string, value: string) {
   return id + '-tabpanel-' + value;
 }
 
-export default function Tabs({ sections }: { sections: Array<Section> }) {
+export default function Tabs({ sections }: { sections: Sections }) {
   const tabId = useId();
   const [value, setValue] = useState(sections[0].value);
 

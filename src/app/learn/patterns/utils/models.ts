@@ -1,3 +1,4 @@
+// Define the shape of object - Public API since the consumer can extend them
 export interface IListing {
   id: number;
   title: string;
@@ -11,10 +12,10 @@ export interface IListing {
   sqft: number;
 }
 
-export interface WithLoaderProps<T> {
+export type WithLoaderProps<T> = {
   data: T;
-}
+};
 
-export interface Temperature {
+export type Temperature = {
   value: number;
-}
+};

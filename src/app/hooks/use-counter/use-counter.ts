@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 
-interface UseCounterReturn {
+type UseCounterReturn = {
   count: number;
   increment: () => void;
   decrement: () => void;
   reset: () => void;
   setCount: Dispatch<SetStateAction<number>>;
-}
+};
 
 export default function useCounter(initialValue = 0): UseCounterReturn {
   const [count, setCount] = useState<number>(initialValue);

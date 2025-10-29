@@ -12,12 +12,12 @@ import {
 
 import { createContext } from '@/components/create-context';
 
-interface FlyoutProps {
+type FlyoutProps = {
   open: boolean;
   value: string;
   toggle: () => void;
   setValue: Dispatch<SetStateAction<string>>;
-}
+};
 
 const [useContext, Provider] = createContext<FlyoutProps>();
 

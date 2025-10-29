@@ -1,6 +1,6 @@
-import { House, Section, User } from './models';
+import { House, Sections, User } from './models';
 
-export const SECTIONS: Array<Section> = [
+export const SECTIONS: Sections = [
   {
     value: 'htmtl',
     title: 'HTML',

@@ -1,10 +1,10 @@
 import { useCallback, useState } from 'react';
 
-interface UseBooleanReturn {
+type UseBooleanReturn = {
   value: boolean;
   setTrue: () => void;
   setFalse: () => void;
-}
+};
 
 export default function useBoolean(
   initialValue: boolean = false
