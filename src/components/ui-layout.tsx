@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 
 import { Separator } from '@/components/ui/separator';
 import {
@@ -16,13 +16,12 @@ export default function UiLayout({
   description,
   implementation,
   children,
-}: {
+}: PropsWithChildren<{
   title: ReactNode;
-  children: ReactNode;
   description?: ReactNode;
   definition?: ReactNode;
   implementation?: ReactNode;
-}) {
+}>) {
   return (
     <div>
       <TooltipProvider>
