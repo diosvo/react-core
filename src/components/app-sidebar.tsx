@@ -48,7 +48,14 @@ const sidebarData = [
   {
     title: 'UI',
     icon: Palette,
-    items: ['Accordion', 'ContactForm', 'ProgressBar', 'Table', 'Tabs'],
+    items: [
+      'Accordion',
+      'ContactForm',
+      'GenerateTable',
+      'ProgressBar',
+      'Table',
+      'Tabs',
+    ],
   },
 ] as const;
 
@@ -81,6 +88,10 @@ export function AppSidebar() {
                         .replace(/([a-z])([A-Z])/g, '$1-$2')
                         .toLowerCase()}`;
                       const isSubItemActive = pathname === subItemPath;
+                      const textItem = subItem.replace(
+                        /([a-z])([A-Z])/g,
+                        '$1 $2'
+                      );
 
                       return (
                         <SidebarMenuSubItem key={subItem}>
@@ -89,7 +100,7 @@ export function AppSidebar() {
                             isActive={isSubItemActive}
                           >
                             <Link href={subItemPath}>
-                              <span>{subItem}</span>
+                              {title === 'UI' ? textItem : subItem}
                             </Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
