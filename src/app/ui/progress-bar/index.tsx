@@ -6,7 +6,7 @@ export default function ProgressBar({ value }: { value: number }) {
   const clampedValue = Math.min(Math.max(value, MIN), MAX);
 
   return (
-    <div className="bg-gray-100 rounded-full border-1 border-solid overflow-hidden">
+    <div className="bg-gray-100 rounded-full border border-solid overflow-hidden">
       <div
         className="text-sm text-center bg-indigo-500 text-white"
         style={{ width: `${clampedValue}%` }}

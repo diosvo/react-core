@@ -1,15 +1,26 @@
 'use client';
 
 import UiLayout from '@/components/ui-layout';
+import { Separator } from '@/components/ui/separator';
+
 import ProgressBar from '.';
+import DynamicProgressBars from './dynamic';
 
 export default function ProgressBarPage() {
   return (
     <UiLayout
       title="Progress Bar"
-      description={
+      implementation={
         <ul>
           <li>· A11y</li>
+          <li>
+            · Animation - <code>transform</code>
+          </li>
+        </ul>
+      }
+      description={
+        <ul>
+          <li>· Fill the bar from 0 to 100 without using JS</li>
         </ul>
       }
     >
@@ -21,6 +32,8 @@ export default function ProgressBarPage() {
           </div>
         ))}
       </div>
+      <Separator className="my-4" />
+      <DynamicProgressBars />
     </UiLayout>
   );
 }
