@@ -61,7 +61,7 @@ function List(props: PropsWithChildren) {
 
   return (
     open && (
-      <div className="bg-gray-100 absolute z-[999] left-4 right-4 w-full max-w-xl">
+      <div className="bg-gray-100 absolute z-999 left-4 right-4 w-full max-w-xl">
         <ul className="m-0 list-none p-0">{props.children}</ul>
       </div>
     )

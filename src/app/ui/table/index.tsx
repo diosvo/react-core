@@ -86,7 +86,7 @@ export default function DataTable<T extends { id: number }>({
           ))}
         </tr>
       </thead>
-      <tbody className="border-y-1 border-b-gray-200">
+      <tbody className="border-y border-b-gray-200">
         {currentData.map((item) => (
           <tr key={item.id}>
             {columns.map(({ key, renderCell }) => (

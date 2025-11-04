@@ -64,7 +64,7 @@ export default function Tabs({ sections }: { sections: Sections }) {
               aria-selected={isActive}
               className={`${
                 isActive ? 'bg-purple-600 text-white' : ''
-              } border-1 border-purple-700 rounded-md px-3 py-2 hover:cursor-pointer`}
+              } border border-purple-700 rounded-md px-3 py-2 hover:cursor-pointer`}
               onClick={() => setValue(itemValue)}
             >
               {title}

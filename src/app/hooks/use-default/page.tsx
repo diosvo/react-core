@@ -21,7 +21,7 @@ export default function useDefaultPage() {
         <>Return the default value when state is null or undefined.</>
       }
     >
-      <div className="flex w-full max-w-sm items-center gap-2 items-end">
+      <div className="flex w-full max-w-sm gap-2 items-end">
         <div className="grid w-full max-w-sm items-center gap-3">
           <Label htmlFor="name">Name</Label>
           <Input
