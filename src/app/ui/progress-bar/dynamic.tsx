@@ -1,17 +1,21 @@
 'use client';
 
-import { RefreshCcw } from 'lucide-react';
+import { Plus, RefreshCcw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 
-function ProgressBar() {
+type ProgressBarProps = {
+  isEmpty: boolean;
+  onCompleted: () => void;
+};
+
+function ProgressBar({ isEmpty, onCompleted }: Readonly<ProgressBarProps>) {
   const [startTransition, setStartTransition] = useState<boolean>(false);
 
-  // Start transition after first render and
-  // never apply this effect ever again.
+  // Start transition when the bar is no longer empty.
   useEffect(() => {
-    if (startTransition) return;
+    if (isEmpty || startTransition) return;
 
     setStartTransition(true);
   });
@@ -25,6 +29,7 @@ function ProgressBar() {
         ]
           .filter(Boolean)
           .join(' ')}
+        onTransitionEnd={onCompleted}
       />
     </div>
   );
@@ -32,6 +37,7 @@ function ProgressBar() {
 
 export default function DynamicProgressBars() {
   const [bars, setBars] = useState<number>(0);
+  const [numFilledUpBars, setNumFilledUpBars] = useState<number>(0);
 
   return (
     <div className="flex flex-col gap-4 justify-center">
@@ -43,6 +49,7 @@ export default function DynamicProgressBars() {
             Reset
           </Button>
           <Button className="ml-2" onClick={() => setBars(bars + 1)}>
+            <Plus />
             Add
           </Button>
         </div>
@@ -51,7 +58,11 @@ export default function DynamicProgressBars() {
         {Array(bars)
           .fill(0)
           .map((_, index) => (
-            <ProgressBar key={index} />
+            <ProgressBar
+              key={index}
+              isEmpty={index > numFilledUpBars}
+              onCompleted={() => setNumFilledUpBars(numFilledUpBars + 1)}
+            />
           ))}
       </div>
     </div>

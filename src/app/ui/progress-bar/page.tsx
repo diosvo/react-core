@@ -12,14 +12,18 @@ export default function ProgressBarPage() {
       title="Progress Bar"
       implementation={
         <ul>
-          <li>· A11y</li>
           <li>
             · Animation - <code>transform</code>
+          </li>
+          <li>
+            · Detect when CSS transition is completed -{' '}
+            <code>onTransitionEnd</code>
           </li>
         </ul>
       }
       description={
         <ul>
+          <li>· A11y</li>
           <li>· Fill the bar from 0 to 100 without using JS</li>
         </ul>
       }
