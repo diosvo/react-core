@@ -6,6 +6,11 @@ import { Separator } from '@/components/ui/separator';
 import ProgressBar from '.';
 import DynamicProgressBars from './dynamic';
 
+// 1. Progress Bar: Single bar with a given value
+// 2. Progress Bars I: Add bar with animation
+// 3. Progress Bars II: Add bar/s and wait for animation to complete one by one
+// 4. Progress Bars III: Add bar/s and fill up animation concurrently, up to a limit of 3
+
 export default function ProgressBarPage() {
   return (
     <UiLayout

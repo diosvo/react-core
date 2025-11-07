@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 
+const CONCURRENCY_LIMIT = 3;
+
 type ProgressBarProps = {
   isEmpty: boolean;
   onCompleted: () => void;
@@ -60,7 +62,7 @@ export default function DynamicProgressBars() {
           .map((_, index) => (
             <ProgressBar
               key={index}
-              isEmpty={index > numFilledUpBars}
+              isEmpty={index >= numFilledUpBars + CONCURRENCY_LIMIT}
               onCompleted={() => setNumFilledUpBars(numFilledUpBars + 1)}
             />
           ))}
