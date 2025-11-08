@@ -10,6 +10,7 @@ import DynamicProgressBars from './dynamic';
 // 2. Progress Bars I: Add bar with animation
 // 3. Progress Bars II: Add bar/s and wait for animation to complete one by one
 // 4. Progress Bars III: Add bar/s and fill up animation concurrently, up to a limit of 3
+// 5. Progress Bars IV: Start/Pause functionality
 
 export default function ProgressBarPage() {
   return (
