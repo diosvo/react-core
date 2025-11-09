@@ -55,6 +55,7 @@ const sidebarData = [
       'ProgressBar',
       'Table',
       'Tabs',
+      'Forms',
     ],
   },
 ] as const;
