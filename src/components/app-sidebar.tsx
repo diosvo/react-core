@@ -50,12 +50,11 @@ const sidebarData = [
     icon: Palette,
     items: [
       'Accordion',
-      'ContactForm',
+      'Forms',
       'GenerateTable',
       'ProgressBar',
       'Table',
       'Tabs',
-      'Forms',
     ],
   },
 ] as const;

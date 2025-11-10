@@ -2,6 +2,8 @@
 
 import { FormEvent } from 'react';
 
+import { toast } from 'sonner';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,12 +30,12 @@ export default function ContactForm() {
     const form = event.currentTarget;
 
     if (form.action !== SUBMIT_URL) {
-      alert('Incorrect form action value');
+      toast.error('Incorrect form action value');
       return;
     }
 
     if (form.method.toLowerCase() !== 'post') {
-      alert('Incorrect form method value');
+      toast.error('Incorrect form method value');
       return;
     }
 
@@ -52,9 +54,9 @@ export default function ContactForm() {
         }),
       });
       const text = await response.text();
-      alert(text);
+      toast(text);
     } catch {
-      alert('Error submitting form!');
+      toast.error('Error submitting form!');
     }
   }
 
@@ -63,7 +65,9 @@ export default function ContactForm() {
       {['name', 'email', 'message'].map((name) => (
         <Field key={name} name={name} />
       ))}
-      <Button type="submit">Send</Button>
+      <Button type="submit" className="w-full">
+        Send
+      </Button>
     </form>
   );
 }
