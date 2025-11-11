@@ -11,6 +11,7 @@ import {
 
 import ContactForm from './ContactForm';
 import FlightBookerPage from './FlightBooker';
+import TemparatureCoverter from './TemperatureConverter';
 
 const FormItems: Array<
   PropsWithChildren<{ title: string; description: string }>
@@ -24,6 +25,11 @@ const FormItems: Array<
     title: 'Flight Booker',
     description: 'Book a one-way or round-trip flight.',
     children: <FlightBookerPage />,
+  },
+  {
+    title: 'Temperature Converter',
+    description: 'Convert temperatures between Celsius and Fahrenheit.',
+    children: <TemparatureCoverter />,
   },
 ];
 export default function FormsPage() {
