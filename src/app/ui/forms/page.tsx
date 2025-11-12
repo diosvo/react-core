@@ -11,6 +11,7 @@ import {
 
 import ContactForm from './ContactForm';
 import FlightBookerPage from './FlightBooker';
+import MortgageCalculator from './MortgageCalculator';
 import TemparatureCoverter from './TemperatureConverter';
 
 const FormItems: Array<
@@ -30,6 +31,11 @@ const FormItems: Array<
     title: 'Temperature Converter',
     description: 'Convert temperatures between Celsius and Fahrenheit.',
     children: <TemparatureCoverter />,
+  },
+  {
+    title: 'Mortgage Calculator',
+    description: 'Calculate monthly mortgage payments.',
+    children: <MortgageCalculator />,
   },
 ];
 export default function FormsPage() {
