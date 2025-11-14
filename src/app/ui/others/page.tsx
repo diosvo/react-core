@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/card';
 
 import HolyGrail from './HolyGrail';
+import Tweet from './Tweet';
 
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
@@ -18,6 +19,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       description:
         'A classic web layout with header, footer, nav, main, and sidebar.',
       children: <HolyGrail />,
+    },
+    {
+      title: 'Tweet',
+      description: "Twitter's tweet UI.",
+      children: <Tweet />,
     },
   ];
 
