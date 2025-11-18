@@ -52,6 +52,7 @@ const sidebarData = [
       'Accordion',
       'Forms',
       'GenerateTable',
+      'Modal',
       'ProgressBar',
       'Table',
       'Tabs',
