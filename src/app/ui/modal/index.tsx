@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { ComponentProps, PropsWithChildren, useId } from 'react';
 import { createPortal } from 'react-dom';
 
 import { Button } from '@/components/ui/button';
@@ -10,12 +10,24 @@ type ModelProps = {
 };
 
 export default function ModalDialog({
+  open = false,
+  ...props
+}: Readonly<{ open: boolean }> & ComponentProps<typeof ModalDialogImpl>) {
+  if (!open) return null;
+
+  return <ModalDialogImpl open={open} {...props} />;
+}
+
+export function ModalDialogImpl({
   open,
   title,
   children,
   onClose,
 }: PropsWithChildren<ModelProps>) {
-  if (!open) return null;
+  // Since hooks cannot be called conditionally and there's no need to call the useId hook when the modal dialog is not open
+  // => The component can be split into two with the bulk of the component within ModalDialogImpl so that the useId hooks are not called unnecessarily.
+  const titleId = useId();
+  const contentId = useId();
 
   return createPortal(
     <div
@@ -24,10 +36,18 @@ export default function ModalDialog({
     >
       <div
         id="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        aria-describedby={contentId}
         className="flex flex-col items-center justify-between p-4 bg-white border border-gray-200 rounded-lg max-w-md"
       >
-        <h2 className="text-xl font-bold">{title}</h2>
-        <div className="my-2">{children}</div>
+        <h2 id={titleId} className="text-xl font-bold">
+          {title}
+        </h2>
+        <div id={contentId} className="my-2">
+          {children}
+        </div>
         <div>
           <Button onClick={onClose}>Close</Button>
         </div>
