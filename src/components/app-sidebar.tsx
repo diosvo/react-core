@@ -33,6 +33,7 @@ const sidebarData = [
     items: [
       'useBoolean',
       'useClickAnywhere',
+      'useClickOutside',
       'useCounter',
       'useCycle',
       'useDefault',
