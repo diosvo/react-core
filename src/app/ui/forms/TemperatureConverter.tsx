@@ -1,8 +1,9 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import { Equal } from 'lucide-react';
+import { parseAsString, useQueryState } from 'nuqs';
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,8 +14,14 @@ function format(input: number) {
 }
 
 export default function TemparatureCoverter() {
-  const [celsius, setCelsius] = useState('');
-  const [fahrenheit, setFahrenheit] = useState('');
+  const [celsius, setCelsius] = useQueryState(
+    'celsius',
+    parseAsString.withDefault('')
+  );
+  const [fahrenheit, setFahrenheit] = useQueryState(
+    'fahrenheit',
+    parseAsString.withDefault('')
+  );
 
   function converter(
     value: string,
