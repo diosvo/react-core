@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import UiLayout from '@/components/ui-layout';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 import ModalDialog from '.';
 
@@ -34,7 +36,7 @@ export default function ModalPage() {
       description={
         <ul>
           <li>1. Accessibility: ARIA roles, states, and properties</li>
-          <li>2. Keyboard Interactions</li>
+          <li>2. Keyboard Interactions: Close, Focus</li>
         </ul>
       }
     >
@@ -44,10 +46,14 @@ export default function ModalPage() {
         onClose={() => setOpen(false)}
         title="Modal Dialog"
       >
-        One morning, when Gregor Samsa woke from troubled dreams, he found
-        himself transformed in his bed into a horrible vermin. He lay on his
-        armour-like back, and if he lifted his head a little he could see his
-        brown belly, slightly domed and divided by arches into stiff sections.
+        <div className="flex flex-col gap-4">
+          <div>
+            Provide your feedback, we will get back in 3-5 business days.
+          </div>
+          <Input id="email" placeholder="vtmn1212@gmail.com" />
+          <Textarea id="message" placeholder="Your message here" rows={5} />
+          <Button type="button">Submit</Button>
+        </div>
       </ModalDialog>
     </UiLayout>
   );

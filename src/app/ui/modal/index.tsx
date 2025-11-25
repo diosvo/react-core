@@ -1,4 +1,11 @@
-import { ComponentProps, PropsWithChildren, useId, useRef } from 'react';
+import {
+  ComponentProps,
+  PropsWithChildren,
+  RefObject,
+  useEffect,
+  useId,
+  useRef,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 import useClickOutside from '@/app/hooks/use-click-outside/use-click-outside';
@@ -11,6 +18,83 @@ type ModelProps = {
   title: string;
   onClose: () => void;
 };
+
+function getTabbableElements(elRef: RefObject<HTMLDivElement>) {
+  if (elRef.current == null) return [];
+
+  return elRef.current.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+}
+
+/**
+ * Focus on the first tabbable element on mount.
+ */
+function useFocusOnFirstTabbableElement(elRef: RefObject<HTMLDivElement>) {
+  useEffect(() => {
+    const tabbableElements = getTabbableElements(elRef);
+    const firstElement = tabbableElements[0];
+    if (firstElement instanceof HTMLElement) {
+      firstElement.focus();
+    }
+  }, []);
+}
+
+/**
+ * Trap focus within an element.
+ */
+function useFocusTrap(elRef: RefObject<HTMLDivElement>) {
+  function trapFocus(event: KeyboardEvent) {
+    if (elRef.current == null) {
+      return;
+    }
+
+    const tabbableElements = getTabbableElements(elRef);
+    const firstElement = tabbableElements[0];
+    const lastElement = tabbableElements[tabbableElements.length - 1];
+
+    if (event.shiftKey) {
+      // Shift + Tab event
+      if (
+        document.activeElement === firstElement &&
+        lastElement instanceof HTMLElement
+      ) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      // Tab event
+      if (
+        document.activeElement === lastElement &&
+        firstElement instanceof HTMLElement
+      ) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+  }
+
+  useKeyDown(Key.Tab, trapFocus);
+}
+
+/**
+ * Retain reference to trigger element and focus that element when closed.
+ */
+function useReturnFocusToTrigger() {
+  const triggerElRef = useRef<Nullable<Element>>(null);
+
+  useEffect(() => {
+    // Save a reference to the focused element when mounted.
+    triggerElRef.current = document.activeElement;
+
+    return () => {
+      if (triggerElRef.current instanceof HTMLElement) {
+        // Focuses on element when unmounted.
+        triggerElRef.current.focus();
+      }
+    };
+  }, []);
+}
 
 export default function ModalDialog({
   open = false,
@@ -32,8 +116,14 @@ export function ModalDialogImpl({
   const contentId = useId();
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  // Closing-related hooks.
   useKeyDown(Key.Escape, onClose);
   useClickOutside(dialogRef, onClose);
+
+  // Focus-related hooks.
+  useReturnFocusToTrigger(); // Has to be called before useFocusOnFirstTabbableElement otherwise the focus is lost.
+  useFocusOnFirstTabbableElement(dialogRef as RefObject<HTMLDivElement>);
+  useFocusTrap(dialogRef as RefObject<HTMLDivElement>);
 
   return createPortal(
     <div
