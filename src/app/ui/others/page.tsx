@@ -12,6 +12,11 @@ import {
 import HolyGrail from './HolyGrail';
 import Tweet from './Tweet';
 
+// useEffect
+import FakeWebSocket from './use-effect/FakeWebSocket';
+import PreviewAvatar from './use-effect/PreviewAvatar';
+import Timer from './use-effect/Timer';
+
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
     {
@@ -24,6 +29,21 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Tweet',
       description: "Twitter's tweet UI.",
       children: <Tweet />,
+    },
+    {
+      title: 'Timer',
+      description: 'Timer function',
+      children: <Timer />,
+    },
+    {
+      title: 'Preview Avatar',
+      description: 'Choose an image file and preview it.',
+      children: <PreviewAvatar />,
+    },
+    {
+      title: 'Fake WebSocket',
+      description: 'Call the event corresponding to each group .',
+      children: <FakeWebSocket />,
     },
   ];
 
