@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
+// GreatFrontend
 import HolyGrail from './HolyGrail';
 import Tweet from './Tweet';
 
@@ -16,6 +17,9 @@ import Tweet from './Tweet';
 import FakeWebSocket from './use-effect/FakeWebSocket';
 import PreviewAvatar from './use-effect/PreviewAvatar';
 import Timer from './use-effect/Timer';
+
+// useLayoutEffect
+import ResetCoutner from './use-layout-effect/ResetCounter';
 
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
@@ -44,6 +48,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Fake WebSocket',
       description: 'Call the event corresponding to each group .',
       children: <FakeWebSocket />,
+    },
+    {
+      title: 'Reset Counter',
+      description: 'Rest to 0 when it exceeds 3.',
+      children: <ResetCoutner />,
     },
   ];
 
