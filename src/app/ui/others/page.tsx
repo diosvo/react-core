@@ -22,6 +22,7 @@ import Timer from './use-effect/Timer';
 import ResetCoutner from './use-layout-effect/ResetCounter';
 
 // useRef
+import Memoization from './use-callback/Memoization';
 import Stopwatch from './use-ref/Stopwatch';
 
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
@@ -61,6 +62,12 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'A Stopwatch',
       description: 'Start/ stop a timer.',
       children: <Stopwatch />,
+    },
+    {
+      title: 'Memoization',
+      description:
+        'Avoid unnecessary re-renders with with memo and useCallback.',
+      children: <Memoization />,
     },
   ];
 
