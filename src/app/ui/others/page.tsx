@@ -21,6 +21,9 @@ import Timer from './use-effect/Timer';
 // useLayoutEffect
 import ResetCoutner from './use-layout-effect/ResetCounter';
 
+// useRef
+import Stopwatch from './use-ref/Stopwatch';
+
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
     {
@@ -53,6 +56,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Reset Counter',
       description: 'Rest to 0 when it exceeds 3.',
       children: <ResetCoutner />,
+    },
+    {
+      title: 'A Stopwatch',
+      description: 'Start/ stop a timer.',
+      children: <Stopwatch />,
     },
   ];
 

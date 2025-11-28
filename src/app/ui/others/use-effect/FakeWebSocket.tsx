@@ -9,7 +9,7 @@ function emitComment(id: number) {
         detail: 'Comment from group ' + id,
       })
     );
-  }, 2000); // 2 seconds per time
+  }, 100000); // Decrease time for testing if needed
 }
 
 const groups = [
