@@ -22,8 +22,11 @@ import Timer from './use-effect/Timer';
 import ResetCoutner from './use-layout-effect/ResetCounter';
 
 // useRef
-import Memoization from './use-callback/Memoization';
 import Stopwatch from './use-ref/Stopwatch';
+
+// Memoization: memo, useCallback, useMemo
+import Memoization from './use-callback/Memoization';
+import AddProduct from './use-memo/AddProduct';
 
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
@@ -68,6 +71,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       description:
         'Avoid unnecessary re-renders with with memo and useCallback.',
       children: <Memoization />,
+    },
+    {
+      title: 'Add Product',
+      description: 'Calculate total price.',
+      children: <AddProduct />,
     },
   ];
 
