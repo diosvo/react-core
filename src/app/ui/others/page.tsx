@@ -28,6 +28,10 @@ import Stopwatch from './use-ref/Stopwatch';
 import Memoization from './use-callback/Memoization';
 import AddProduct from './use-memo/AddProduct';
 
+// useReducer
+import Todo from './use-reducer/Todo';
+import UpDownNumber from './use-reducer/UpDownNumber';
+
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
     {
@@ -76,6 +80,16 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Add Product',
       description: 'Calculate total price.',
       children: <AddProduct />,
+    },
+    {
+      title: 'Up & Down',
+      description: 'Basic reducer.',
+      children: <UpDownNumber />,
+    },
+    {
+      title: 'Todo List',
+      description: 'Add and delete jobs.',
+      children: <Todo />,
     },
   ];
 
