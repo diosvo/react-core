@@ -15,7 +15,7 @@ function Table({ rows, columns }: { rows: number; columns: number }) {
             {Array.from({ length: columns }).map((_, column) => (
               <td
                 key={column}
-                className="p-2 text-center border-1 border-indigo-500"
+                className="p-2 text-center border border-indigo-500"
               >
                 {column % 2 === 0
                   ? rows * column + (row + 1)
