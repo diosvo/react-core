@@ -29,6 +29,7 @@ import Memoization from './use-callback/Memoization';
 import AddProduct from './use-memo/AddProduct';
 
 // useReducer
+import Theme from './use-context/Theme';
 import Todo from './use-reducer/Todo';
 import UpDownNumber from './use-reducer/UpDownNumber';
 
@@ -90,6 +91,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Todo List',
       description: 'Add and delete jobs.',
       children: <Todo />,
+    },
+    {
+      title: 'Toggle Theme',
+      description: 'Switch theme',
+      children: <Theme />,
     },
   ];
 
