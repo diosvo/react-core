@@ -33,6 +33,9 @@ import Theme from './use-context/Theme';
 import Todo from './use-reducer/Todo';
 import UpDownNumber from './use-reducer/UpDownNumber';
 
+// useContext + useReducer
+import ContextWithReducer from './context';
+
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
     {
@@ -96,6 +99,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Toggle Theme',
       description: 'Switch theme',
       children: <Theme />,
+    },
+    {
+      title: 'Context + useReducer',
+      description: 'Todo List with Context and useReducer as Redux.',
+      children: <ContextWithReducer />,
     },
   ];
 
