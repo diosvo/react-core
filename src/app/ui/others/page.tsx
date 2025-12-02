@@ -36,6 +36,9 @@ import UpDownNumber from './use-reducer/UpDownNumber';
 // useContext + useReducer
 import ContextWithReducer from './context';
 
+// useImperativeHandle
+import Playground from './use-imperative-handle/Playground';
+
 const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
   [
     {
@@ -104,6 +107,11 @@ const Items: Array<PropsWithChildren<{ title: string; description: string }>> =
       title: 'Context + useReducer',
       description: 'Todo List with Context and useReducer as Redux.',
       children: <ContextWithReducer />,
+    },
+    {
+      title: 'Playground',
+      description: 'Play/ Pause video.',
+      children: <Playground />,
     },
   ];
 
