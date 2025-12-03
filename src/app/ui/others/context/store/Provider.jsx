@@ -9,7 +9,7 @@ import logger from './logger';
 export default function Provider({ children }) {
   // ❓ Why useReducer
   // Include many states => more complex logic
-  // Same as Reduc => Centralize state flow
+  // Same as Redux => Centralize state flow
   const [state, dispatch] = useReducer(logger(reducer), initialState);
 
   return <Context value={{ state, dispatch }}>{children}</Context>;

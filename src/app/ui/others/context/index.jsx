@@ -17,18 +17,19 @@ function Content() {
 
   return (
     <>
-      <div className="flex gap-2 mb-2">
+      <form className="flex gap-2 mb-2">
         <Input
           value={state.todoInput}
           onChange={(e) => dispatch(setTodoInput(e.target.value))}
         />
         <Button
+          type="submit"
           onClick={handleAdd}
           disabled={state.todoInput.trim().length === 0}
         >
           Add
         </Button>
-      </div>
+      </form>
       <ul>
         {state.todos.map((job, index) => (
           <li key={index}>&bull; {job}</li>
