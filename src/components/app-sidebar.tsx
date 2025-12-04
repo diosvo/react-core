@@ -43,6 +43,7 @@ const sidebarData = [
       'usePrevious',
       'useQuery',
       'useStateWithReset',
+      'useTimeout',
       'useToggle',
     ],
   },
