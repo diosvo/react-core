@@ -1,19 +1,15 @@
 'use client';
 
-import HookLayout from '@/components/hook-layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
 import useToggle from './use-toggle';
 
-export default function useTogglePage() {
+export default function UseTogglePage() {
   const [value, toggle, setValue] = useToggle();
 
   return (
-    <HookLayout
-      title="useToggle"
-      description={<>Manage a boolean toggle state</>}
-    >
+    <>
       <Badge variant="secondary">Enabled: {value ? 'On' : 'Off'}</Badge>
       <div className="flex w-full items-center gap-2 mt-2">
         <Button onClick={toggle}>Toggle</Button>
@@ -24,6 +20,6 @@ export default function useTogglePage() {
           Disable
         </Button>
       </div>
-    </HookLayout>
+    </>
   );
 }

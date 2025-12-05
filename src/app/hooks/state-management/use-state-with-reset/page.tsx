@@ -2,21 +2,17 @@
 
 import { RefreshCcw } from 'lucide-react';
 
-import HookLayout from '@/components/hook-layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import useStateWithReset from './use-state-with-reset';
 
-export default function useStateWithResetPage() {
+export default function UseStateWithResetPage() {
   const [value, setValue, resetValue] = useStateWithReset(() => 'Dios Vo');
 
   return (
-    <HookLayout
-      title="useStateWithReset"
-      description={<>Reset the state to its initial value.</>}
-    >
+    <>
       <Badge variant="secondary">Value: {value}</Badge>
       <div className="flex w-full items-center gap-2 mt-2">
         <Input
@@ -29,6 +25,6 @@ export default function useStateWithResetPage() {
           Reset
         </Button>
       </div>
-    </HookLayout>
+    </>
   );
 }

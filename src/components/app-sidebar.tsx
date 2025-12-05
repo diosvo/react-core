@@ -30,22 +30,7 @@ const sidebarData = [
   {
     title: 'Hooks',
     icon: Webhook,
-    items: [
-      'useBoolean',
-      'useClickAnywhere',
-      'useClickOutside',
-      'useCounter',
-      'useCycle',
-      'useDefault',
-      'useEffectOnce',
-      'useFocus',
-      'useHover',
-      'usePrevious',
-      'useQuery',
-      'useStateWithReset',
-      'useTimeout',
-      'useToggle',
-    ],
+    items: ['StateManagement', 'DOM Events', 'Effects', 'Timers', 'Utilities'],
   },
   {
     title: 'UI',
@@ -94,7 +79,7 @@ export function AppSidebar() {
                       const isSubItemActive = pathname === subItemPath;
                       const textItem = subItem.replace(
                         /([a-z])([A-Z])/g,
-                        '$1 $2'
+                        '$1 $2',
                       );
 
                       return (
@@ -103,9 +88,7 @@ export function AppSidebar() {
                             asChild
                             isActive={isSubItemActive}
                           >
-                            <Link href={subItemPath}>
-                              {title === 'UI' ? textItem : subItem}
-                            </Link>
+                            <Link href={subItemPath}>{textItem}</Link>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       );
