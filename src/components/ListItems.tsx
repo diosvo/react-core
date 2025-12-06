@@ -13,6 +13,10 @@ export default function GridCard({
 }: {
   items: Array<PropsWithChildren<CardItem>>;
 }) {
+  if (!Items.length) {
+    return <p className="text-center my-2">No items found.</p>;
+  }
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
       {Items.map(({ title, description, children }, index) => (
