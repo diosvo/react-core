@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import HookLayout from '@/components/hook-layout';
 import { Badge } from '@/components/ui/badge';
 
 import useClickAnywhere from './use-click-anywhere';
@@ -14,12 +13,5 @@ export default function useClickAnywherePage() {
     setCount((prev) => prev + 1);
   });
 
-  return (
-    <HookLayout
-      title="useClickAnywhere"
-      description="Handle click events anywhere on the document."
-    >
-      <Badge variant="destructive">Count: {count}</Badge>
-    </HookLayout>
-  );
+  return <Badge variant="destructive">Count: {count}</Badge>;
 }

@@ -30,7 +30,7 @@ const sidebarData = [
   {
     title: 'Hooks',
     icon: Webhook,
-    items: ['StateManagement', 'DOM Events', 'Effects', 'Timers', 'Utilities'],
+    items: ['StateManagement', 'DomEvents', 'Effects', 'Timers', 'Utilities'],
   },
   {
     title: 'UI',

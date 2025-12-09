@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 
-import useClickOutside from '@/app/hooks/use-click-outside/use-click-outside';
+import useClickOutside from '@/app/hooks/dom-events/use-click-outside/use-click-outside';
 import useKeyDown, { Key } from '@/hooks/use-key-down';
 
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,7 @@ function getTabbableElements(elRef: RefObject<HTMLDivElement>) {
   if (elRef.current == null) return [];
 
   return elRef.current.querySelectorAll(
-    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
   );
 }
 
@@ -150,6 +150,6 @@ export function ModalDialogImpl({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
