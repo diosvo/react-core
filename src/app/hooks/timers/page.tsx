@@ -3,8 +3,6 @@
 import { PropsWithChildren } from 'react';
 
 import GridCard from '@/components/ListItems';
-import SearchInput from '@/components/SearchInput';
-
 import { useSearchParams } from '@/lib/utils';
 
 import UseTimeoutPage from './use-timeout/page';
@@ -24,10 +22,5 @@ export default function TimersPage() {
     title.toLowerCase().includes(query.toLowerCase()),
   );
 
-  return (
-    <>
-      <SearchInput />
-      <GridCard items={filteredItems} />
-    </>
-  );
+  return <GridCard items={filteredItems} />;
 }

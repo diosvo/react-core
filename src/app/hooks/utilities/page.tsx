@@ -3,8 +3,6 @@
 import { PropsWithChildren } from 'react';
 
 import GridCard from '@/components/ListItems';
-import SearchInput from '@/components/SearchInput';
-
 import { useSearchParams } from '@/lib/utils';
 
 import UsePreviousPage from './use-previous/page';
@@ -30,10 +28,5 @@ export default function UtilitiesPage() {
     title.toLowerCase().includes(query.toLowerCase()),
   );
 
-  return (
-    <>
-      <SearchInput />
-      <GridCard items={filteredItems} />
-    </>
-  );
+  return <GridCard items={filteredItems} />;
 }

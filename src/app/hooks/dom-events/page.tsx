@@ -3,8 +3,6 @@
 import { PropsWithChildren } from 'react';
 
 import GridCard from '@/components/ListItems';
-import SearchInput from '@/components/SearchInput';
-
 import { useSearchParams } from '@/lib/utils';
 
 import UseClickAnywherePage from './use-click-anywhere/page';
@@ -42,10 +40,5 @@ export default function DOMEventsPage() {
     title.toLowerCase().includes(query.toLowerCase()),
   );
 
-  return (
-    <>
-      <SearchInput />
-      <GridCard items={filteredItems} />
-    </>
-  );
+  return <GridCard items={filteredItems} />;
 }

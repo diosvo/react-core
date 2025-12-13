@@ -2,15 +2,13 @@
 
 import { PropsWithChildren } from 'react';
 
+import GridCard from '@/components/ListItems';
+import { useSearchParams } from '@/lib/utils';
+
 import UseCounterPage from './use-counter/page';
 import UseCyclePage from './use-cycle/page';
 import UseStateWithResetPage from './use-state-with-reset/page';
 import UseTogglePage from './use-toggle/page';
-
-import GridCard from '@/components/ListItems';
-import SearchInput from '@/components/SearchInput';
-
-import { useSearchParams } from '@/lib/utils';
 
 const Items: Array<PropsWithChildren<CardItem>> = [
   {
@@ -42,10 +40,5 @@ export default function StateManagementPage() {
     title.toLowerCase().includes(query.toLowerCase()),
   );
 
-  return (
-    <>
-      <SearchInput />
-      <GridCard items={filteredItems} />
-    </>
-  );
+  return <GridCard items={filteredItems} />;
 }
