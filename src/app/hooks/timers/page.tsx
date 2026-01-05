@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react';
 import GridCard from '@/components/ListItems';
 import { useSearchParams } from '@/lib/utils';
 
+import UseIntervalPage from './use-interval/page';
 import UseTimeoutPage from './use-timeout/page';
 
 const Items: Array<PropsWithChildren<CardItem>> = [
@@ -12,6 +13,11 @@ const Items: Array<PropsWithChildren<CardItem>> = [
     title: 'useCounter',
     description: 'Invoke a callback function after a specified delay.',
     children: <UseTimeoutPage />,
+  },
+  {
+    title: 'useInterval',
+    description: 'Invokes a callback function at a specified delay.',
+    children: <UseIntervalPage />,
   },
 ];
 
