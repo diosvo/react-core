@@ -6,6 +6,7 @@ import GridCard from '@/components/ListItems';
 import { useSearchParams } from '@/lib/utils';
 
 import UseIntervalPage from './use-interval/page';
+import UseThrottlePage from './use-throttle/page';
 import UseTimeoutPage from './use-timeout/page';
 
 const Items: Array<PropsWithChildren<CardItem>> = [
@@ -18,6 +19,11 @@ const Items: Array<PropsWithChildren<CardItem>> = [
     title: 'useInterval',
     description: 'Invokes a callback function at a specified delay.',
     children: <UseIntervalPage />,
+  },
+  {
+    title: 'useThrottle',
+    description: 'Delay state updates to happen at most every X milliseconds.',
+    children: <UseThrottlePage />,
   },
 ];
 
