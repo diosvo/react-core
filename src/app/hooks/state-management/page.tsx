@@ -7,6 +7,7 @@ import { useSearchParams } from '@/lib/utils';
 
 import UseCounterPage from './use-counter/page';
 import UseCyclePage from './use-cycle/page';
+import UseSetPage from './use-set/page';
 import UseStateWithResetPage from './use-state-with-reset/page';
 import UseTogglePage from './use-toggle/page';
 
@@ -30,6 +31,11 @@ const Items: Array<PropsWithChildren<CardItem>> = [
     title: 'useToggle',
     description: 'Manage a boolean toggle state.',
     children: <UseTogglePage />,
+  },
+  {
+    title: 'useSet',
+    description: 'Manage a Set with utility functions.',
+    children: <UseSetPage />,
   },
 ];
 
