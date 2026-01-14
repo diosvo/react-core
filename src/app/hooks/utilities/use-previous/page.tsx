@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 import usePrevious from './use-previous';
 
@@ -13,7 +14,7 @@ export default function UsePreviousPage() {
 
   return (
     <>
-      <div className="flex items-center gap-1 mb-3">
+      <ButtonGroup>
         <Button onClick={() => setCount((count) => count + 1)}>Increase</Button>
         <Button
           variant="outline"
@@ -21,8 +22,8 @@ export default function UsePreviousPage() {
         >
           Decrease
         </Button>
-      </div>
-      <div className="flex gap-2">
+      </ButtonGroup>
+      <div className="flex gap-2 mt-3">
         <Badge variant="destructive">Current: {count}</Badge>
         <Badge variant="secondary">Previous: {previousCount}</Badge>
       </div>
