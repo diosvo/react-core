@@ -4,6 +4,7 @@ import { Pause, Play, Plus, RefreshCcw } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 const CONCURRENCY_LIMIT = 3;
 const INITIAL_PROGRESSION = [0];
@@ -71,24 +72,20 @@ export default function DynamicProgressBars() {
     <div className="flex flex-col gap-4 justify-center">
       <div className="flex items-center justify-between">
         <h2>Dyamic Progress Bars</h2>
-        <div>
-          <Button className="ml-2" onClick={() => add()}>
+        <ButtonGroup>
+          <Button variant="secondary" onClick={() => add()}>
             <Plus />
             Add
           </Button>
-          <Button
-            variant="destructive"
-            className="ml-2"
-            onClick={() => (isProgressing ? stop() : start())}
-          >
+          <Button onClick={() => (isProgressing ? stop() : start())}>
             {isProgressing ? <Pause /> : <Play />}
             {isProgressing ? 'Pause' : 'Start'}
           </Button>
-          <Button type="reset" variant="outline" onClick={() => reset()}>
+          <Button type="reset" variant="destructive" onClick={() => reset()}>
             <RefreshCcw />
             Reset
           </Button>
-        </div>
+        </ButtonGroup>
       </div>
       <div className="flex flex-col gap-2">
         {progression.map((progress, index) => (
