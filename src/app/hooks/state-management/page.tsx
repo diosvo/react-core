@@ -7,6 +7,7 @@ import { useSearchParams } from '@/lib/utils';
 
 import UseCounterPage from './use-counter/page';
 import UseCyclePage from './use-cycle/page';
+import UseMapPage from './use-map/page';
 import UseSetPage from './use-set/page';
 import UseStateWithResetPage from './use-state-with-reset/page';
 import UseTogglePage from './use-toggle/page';
@@ -36,6 +37,11 @@ const Items: Array<PropsWithChildren<CardItem>> = [
     title: 'useSet',
     description: 'Manage a Set with utility functions.',
     children: <UseSetPage />,
+  },
+  {
+    title: 'useMap',
+    description: 'Manage a Map with utility functions.',
+    children: <UseMapPage />,
   },
 ];
 
