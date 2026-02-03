@@ -25,6 +25,27 @@ type TodoState = {
   jobs: Array<Task>;
 };
 
+const SET_JOB = 'set_job';
+const ADD_JOB = 'add_job';
+const DELETE_JOB = 'delete_job';
+
+interface SetJobAction extends Action {
+  type: typeof SET_JOB;
+  payload: string;
+}
+
+interface AddJobAction extends Action {
+  type: typeof ADD_JOB;
+  payload: string;
+}
+
+interface DeleteJobAction extends Action {
+  type: typeof DELETE_JOB;
+  payload: number;
+}
+
+type JobAction = SetJobAction | AddJobAction | DeleteJobAction;
+
 // 1️⃣ Initial state
 const initialState: TodoState = {
   job: '',
@@ -32,32 +53,29 @@ const initialState: TodoState = {
 };
 
 // 2️⃣ Actions
-const SET_JOB = 'set_job';
-const ADD_JOB = 'add_job';
-const DELETE_JOB = 'delete_job';
 
-const setJob = (payload: string) => ({
+const setJob = (payload: string): SetJobAction => ({
   type: SET_JOB,
   payload,
 });
 
-const addJob = (payload: string) => ({
+const addJob = (payload: string): AddJobAction => ({
   type: ADD_JOB,
   payload,
 });
 
-const deleteJob = (id: number) => ({
+const deleteJob = (id: number): DeleteJobAction => ({
   type: DELETE_JOB,
   payload: id,
 });
 
 // 3️⃣ Reducer
-function reducer(state: TodoState, action: Action) {
+function reducer(state: TodoState, action: JobAction) {
   switch (action.type) {
     case SET_JOB:
       return {
         ...state,
-        job: action.payload as string,
+        job: action.payload,
       };
     case ADD_JOB:
       return {
@@ -66,7 +84,7 @@ function reducer(state: TodoState, action: Action) {
           ...state.jobs,
           {
             id: id++,
-            label: action.payload as string,
+            label: action.payload,
           },
         ],
       };
@@ -81,7 +99,7 @@ function reducer(state: TodoState, action: Action) {
   }
 }
 
-// 4. Dispatch
+// 4️⃣ Dispatch
 
 export default function Todo() {
   const [state, dispatch] = useReducer(reducer, initialState);
