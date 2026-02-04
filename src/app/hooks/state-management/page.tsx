@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react';
 import GridCard from '@/components/ListItems';
 import { useSearchParams } from '@/lib/utils';
 
+import UseAndSuspense from './use-and-suspense/page';
 import UseCounterPage from './use-counter/page';
 import UseCyclePage from './use-cycle/page';
 import UseMapPage from './use-map/page';
@@ -14,6 +15,11 @@ import UseStateWithResetPage from './use-state-with-reset/page';
 import UseTogglePage from './use-toggle/page';
 
 const Items: Array<PropsWithChildren<CardItem>> = [
+  {
+    title: 'useAndSuspense',
+    description: 'Data fetching with use + Suspense',
+    children: <UseAndSuspense />,
+  },
   {
     title: 'useCounter',
     description: 'Manages counter state with useCallback',
