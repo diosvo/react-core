@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 
-export const createContext = <T extends {}>() => {
-  const Context = React.createContext<Nullish<T>>(undefined);
+// <T,> or <T extends object> make it clear to the parser that T is a generic type parameter + not JSX syntax
+export const createContext = <T,>() => {
+  const Context = React.createContext<Nullable<T>>(null);
 
   const useContext = () => {
     const ctx = React.useContext(Context);
