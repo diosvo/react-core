@@ -25,7 +25,7 @@ const sidebarData = [
   {
     title: 'Learn',
     icon: Shapes,
-    items: ['Patterns'],
+    items: ['react.dev', 'Patterns'],
   },
   {
     title: 'Hooks',
