@@ -25,7 +25,7 @@ const sidebarData = [
   {
     title: 'Learn',
     icon: Shapes,
-    items: ['react.dev', 'Patterns'],
+    items: ['react.dev', 'Patterns', 'Redux'],
   },
   {
     title: 'Hooks',
@@ -58,7 +58,7 @@ export function AppSidebar() {
           {sidebarData.map(({ title, items, icon: Icon }) => (
             <Collapsible
               key={title}
-              defaultOpen={title === 'UI'}
+              defaultOpen={title === 'Learn'}
               className="group/collapsible"
               disabled={!items.length}
             >
