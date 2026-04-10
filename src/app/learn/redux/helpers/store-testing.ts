@@ -1,13 +1,15 @@
 import { addBug, removeBug, resolveBug } from '../setup/actions';
-import customStore from '../setup/customStore';
+import store from '../setup/store';
 
-const unsubcribe = customStore.subscribe(() =>
-  console.log('Store changed!', customStore.getState()),
+const unsubcribe = store.subscribe(() =>
+  console.log('Store changed!', store.getState()),
 );
 
-customStore.dispatch(addBug('Bug 1'));
-customStore.dispatch(resolveBug(1));
+store.dispatch(addBug('Bug 1'));
+store.dispatch(addBug('Bug 2'));
+store.dispatch(addBug('Bug 3'));
+store.dispatch(resolveBug(1));
 
-// unsubcribe(); // Stop listening to state changes
+unsubcribe(); // Stop listening to state changes
 
-customStore.dispatch(removeBug(1));
+store.dispatch(removeBug(1));
