@@ -2,7 +2,7 @@
 
 # Structuring Files and Folders
 
-[React]
+## [React]
 
 src/
 
@@ -13,23 +13,27 @@ src/
   - index
   - styles
 
-[Redux]
+## [Redux]
 
 src/
 
-Previous:
+### Standard Pattern
 
 - store/<feature>
   - index
   - actions
   - reducer
 
-Now (prefer) - **Ducks Pattern** -- Collocates actions, action types and reducers
+**Ducks Pattern** -- Collocates actions, action types and reducers
 
 - store/<feature> (includes all into one file)
 
-👍🏻 Rules of thumb
+#### 👍🏻 Rules of thumb
 
 - Export default function reducer
 - Export action creators as functions
 - Action types in the form: `<feature>/reducer/ACTION_TYPE` (Uppercase with underscores)
+
+### Toolkit
+
+- store/<feature> (includes all into one file)
