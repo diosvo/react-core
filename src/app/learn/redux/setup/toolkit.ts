@@ -1,9 +1,7 @@
 import type { PayloadAction, UnknownAction } from '@reduxjs/toolkit';
-import { createReducer, createSlice } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
-interface CounterState {
-  value: number;
-}
+import { CounterState } from './types';
 
 function isActionWithNumberPayload(
   action: UnknownAction,
@@ -13,12 +11,12 @@ function isActionWithNumberPayload(
 
 // Actions
 
-// export const increment = createAction('counter/increment');
-// export const decrement = createAction('counter/decrement');
-// const incrementByAmount = createAction('counter/incrementByAmount');
+export const increment = createAction('counter/increment');
+export const decrement = createAction('counter/decrement');
+const incrementByAmount = createAction('counter/incrementByAmount');
 
 // Reducers
-const initialState = { value: 0 } satisfies CounterState as CounterState;
+export const initialState = { value: 0 } satisfies CounterState as CounterState;
 
 const reducer = createReducer(initialState, (builder) => {
   builder
@@ -37,22 +35,4 @@ const reducer = createReducer(initialState, (builder) => {
     .addDefaultCase((state, action) => {});
 });
 
-// ✨ Slice
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    increment(state) {
-      state.value += 1;
-    },
-    decrement(state) {
-      state.value -= 1;
-    },
-    incrementByAmount(state, action: PayloadAction<number>) {
-      state.value += action.payload;
-    },
-  },
-});
-
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export default counterSlice.reducer;
+export default reducer;
