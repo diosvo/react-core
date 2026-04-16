@@ -15,9 +15,53 @@ src/
 
 ## [Redux]
 
-src/
+Inside `src/`
 
-### Standard Pattern
+### Structuring the store
+
+#### Slice of state
+
+- Fast lookup: Object
+- Ordered data: Array
+
+Need both?
+
+> If user change the order of the array, we simply reorder the items in the array.
+
+```js
+{
+  byId: {
+    1: { ... },
+    2: { ... },
+    3: { ... },
+  },
+  allIds: [1, 2, 3],
+}
+```
+
+#### Store structure
+
+```js
+{
+  entities: {
+    tags: [],
+    products: [],
+    ...
+  },
+  auth: {
+    user: null,
+    token: null,
+  },
+  ui: {
+    products: {
+      query: '',
+      sort: 'asc',
+    }
+  }
+}
+```
+
+### Standard Pattern (Old)
 
 - store/<feature>
   - index
@@ -34,6 +78,8 @@ src/
 - Export action creators as functions
 - Action types in the form: `<feature>/reducer/ACTION_TYPE` (Uppercase with underscores)
 
-### Toolkit
+### Toolkit (New)
 
-- store/<feature> (includes all into one file)
+- store/<slice-name>
+  - export default slice.reducer
+  - export const { ... } = slice.actions
