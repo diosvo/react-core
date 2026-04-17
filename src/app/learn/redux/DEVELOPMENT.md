@@ -61,6 +61,17 @@ Need both?
 }
 ```
 
+Hierarchy:
+
+```text
+Store → Root
+       → Entities
+        → <feature>
+        → ...
+       → UI
+       → Auth
+```
+
 ### Standard Pattern (Old)
 
 - store/<feature>

@@ -1,6 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import reducer from '../setup/slices';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import entitiesReducer from './entities';
 
-const store = configureStore({ reducer });
+const rootReducer = combineReducers({
+  entities: entitiesReducer,
+});
+
+const store = configureStore({ reducer: rootReducer });
 
 export default store;
