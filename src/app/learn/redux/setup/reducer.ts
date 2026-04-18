@@ -1,4 +1,5 @@
 import { ADD_BUG, REMOVE_BUG, RESOLVE_BUG } from './actions';
+import { RootState } from './store';
 
 let lastId = 0;
 
@@ -14,6 +15,9 @@ type Action = {
   type: 'ADD_BUG' | 'RESOLVE_BUG' | 'REMOVE_BUG';
   payload: Bug;
 };
+
+export const getUnresolvedBugs = (state: RootState) =>
+  state.entities.bugs.filter(({ resolved }) => !resolved);
 
 export default function reducer(state = [], action: Action) {
   switch (action.type) {

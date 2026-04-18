@@ -91,6 +91,10 @@ Store → Root
 
 ### Toolkit (New)
 
-- store/<slice-name>
-  - export default slice.reducer
-  - export const { ... } = slice.actions
+- store/
+  - setup/
+    - index
+    - entities
+  - <slice-name>
+    - export default slice.reducer
+    - export const { ... } = slice.actions

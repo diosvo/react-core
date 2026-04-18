@@ -26,3 +26,7 @@ const counterSlice = createSlice({
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 // should be exported by default, and imported as reducer in store.ts
 export default counterSlice.reducer;
+
+// Selector
+
+// export const getCounterValue = (state) => state.counter.value;
