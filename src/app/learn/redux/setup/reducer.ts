@@ -1,3 +1,5 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { ADD_BUG, REMOVE_BUG, RESOLVE_BUG } from './actions';
 import { RootState } from './store';
 
@@ -16,8 +18,17 @@ type Action = {
   payload: Bug;
 };
 
-export const getUnresolvedBugs = (state: RootState) =>
+// 🤔 Problem: `filter` method creates new array when we call selector
+const _getUnresolvedBugs = (state: RootState) =>
   state.entities.bugs.filter(({ resolved }) => !resolved);
+
+// Solution ^ Memoization
+export const getUnresolvedBugs = createSelector(
+  // input
+  (state: RootState) => state.entities.bugs,
+  // output: return the result from the cache
+  (bugs) => bugs.filter(({ resolved }) => !resolved),
+);
 
 export default function reducer(state = [], action: Action) {
   switch (action.type) {

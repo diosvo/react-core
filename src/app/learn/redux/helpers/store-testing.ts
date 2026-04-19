@@ -14,14 +14,22 @@ store.dispatch(increment());
 store.dispatch(decrement());
 store.dispatch(incrementByAmount(5));
 
+//#region Selectors
+
 // 🤔 Problem:
 // - Compute derived data could be complex
-// - The logic could be used in different places
+// - The logic could be used in *different* places
 const unresolvedBugs = store
   .getState()
   .entities.bugs.filter(({ resolved }) => !resolved);
 
 // Solution ^
 console.log('Unresolved bugs', getUnresolvedBugs(store.getState()));
+
+// 🤔 Problem ^ Two different array in the memory without createSelector
+const x = getUnresolvedBugs(store.getState());
+const y = getUnresolvedBugs(store.getState());
+
+//#endregion
 
 unsubcribe(); // Stop listening to state changes
