@@ -1,7 +1,9 @@
-import { addBug } from '../setup/actions';
-import { getUnresolvedBugs } from '../setup/reducer';
-import { decrement, increment, incrementByAmount } from '../setup/slices';
 import store from '../setup/store';
+
+import { addBug, assignBugToUser } from '../setup/actions';
+import { getBugsByUser, getUnresolvedBugs } from '../setup/reducer';
+import { decrement, increment, incrementByAmount } from '../setup/slices';
+import { add as addUser, getUserIdByName } from '../setup/users';
 
 const unsubcribe = store.subscribe(() =>
   console.log('Store changed!', store.getState()),
@@ -9,6 +11,12 @@ const unsubcribe = store.subscribe(() =>
 
 store.dispatch(increment());
 store.dispatch(addBug('Bug 1'));
+store.dispatch(addBug('Bug 2'));
+store.dispatch(addUser('User 1'));
+
+const userId = getUserIdByName('User 1')(store.getState());
+store.dispatch(assignBugToUser(1, userId));
+const bugs = getBugsByUser('2')(store.getState());
 
 store.dispatch(increment());
 store.dispatch(decrement());

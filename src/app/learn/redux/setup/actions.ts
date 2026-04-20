@@ -1,6 +1,7 @@
 export const ADD_BUG = 'ADD_BUG';
 export const RESOLVE_BUG = 'RESOLVE_BUG';
 export const REMOVE_BUG = 'REMOVE_BUG';
+export const ASSIGN_BUG_TO_USER = 'ASSIGN_BUG_TO_USER';
 
 export function addBug(description: string) {
   return {
@@ -25,6 +26,16 @@ export function removeBug(id: number) {
     type: REMOVE_BUG,
     payload: {
       id,
+    },
+  };
+}
+
+export function assignBugToUser(bugId: number, userId: Nullable<string>) {
+  return {
+    type: ASSIGN_BUG_TO_USER,
+    payload: {
+      bugId,
+      userId,
     },
   };
 }
