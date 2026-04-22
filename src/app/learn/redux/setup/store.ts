@@ -1,5 +1,7 @@
-import { combineReducers, configureStore, Tuple } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
 import entitiesReducer from './entities';
+import func from './middleware/func';
 import logger from './middleware/logger';
 
 const rootReducer = combineReducers({
@@ -8,7 +10,10 @@ const rootReducer = combineReducers({
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: () => new Tuple(logger),
+  // Must list all the middleware in the array
+  // middleware: () => getDefaultMiddleware new Tuple(logger, func),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(logger, func),
 });
 
 export default store;

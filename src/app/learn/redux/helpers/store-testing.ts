@@ -41,3 +41,10 @@ const y = getUnresolvedBugs(store.getState());
 //#endregion
 
 unsubcribe(); // Stop listening to state changes
+
+store.dispatch(() => {
+  // Call an API
+  // When the promise is resolved => dispatch()
+  // If the promise is rejected => dispatch()
+  store.dispatch({ type: 'apiCallBegan', bugs: [1, 2, 3] });
+});
