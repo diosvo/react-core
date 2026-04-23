@@ -48,3 +48,8 @@ store.dispatch(() => {
   // If the promise is rejected => dispatch()
   store.dispatch({ type: 'apiCallBegan', bugs: [1, 2, 3] });
 });
+
+store.dispatch({
+  type: 'error',
+  payload: { message: 'An error occurred' },
+});

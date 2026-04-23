@@ -3,6 +3,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import entitiesReducer from './entities';
 import func from './middleware/func';
 import logger from './middleware/logger';
+import toast from './middleware/toast';
 
 const rootReducer = combineReducers({
   entities: entitiesReducer,
@@ -13,7 +14,7 @@ const store = configureStore({
   // Must list all the middleware in the array
   // middleware: () => getDefaultMiddleware new Tuple(logger, func),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger, func),
+    getDefaultMiddleware().concat(logger, func, toast),
 });
 
 export default store;
