@@ -53,3 +53,12 @@ store.dispatch({
   type: 'error',
   payload: { message: 'An error occurred' },
 });
+
+store.dispatch({
+  type: 'apiCallBegan',
+  payload: {
+    url: '/users',
+    onSuccess: 'TODOS_RECEIVED',
+    onError: 'apiRequestFailed',
+  },
+});

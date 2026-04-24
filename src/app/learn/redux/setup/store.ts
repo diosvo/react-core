@@ -1,6 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import entitiesReducer from './entities';
+
+import api from './middleware/api';
 import func from './middleware/func';
 import logger from './middleware/logger';
 import toast from './middleware/toast';
@@ -14,7 +16,7 @@ const store = configureStore({
   // Must list all the middleware in the array
   // middleware: () => getDefaultMiddleware new Tuple(logger, func),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger, func, toast),
+    getDefaultMiddleware().concat(logger, func, toast, api),
 });
 
 export default store;
