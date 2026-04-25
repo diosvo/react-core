@@ -2,6 +2,8 @@ import store from '../setup/store';
 
 import { addBug, assignBugToUser } from '../setup/actions';
 import { getBugsByUser, getUnresolvedBugs } from '../setup/reducer';
+
+import { apiRequestBegan } from '../setup/api';
 import { decrement, increment, incrementByAmount } from '../setup/slices';
 import { add as addUser, getUserIdByName } from '../setup/users';
 
@@ -42,6 +44,8 @@ const y = getUnresolvedBugs(store.getState());
 
 unsubcribe(); // Stop listening to state changes
 
+// 🧨 Middleware
+
 store.dispatch(() => {
   // Call an API
   // When the promise is resolved => dispatch()
@@ -54,11 +58,8 @@ store.dispatch({
   payload: { message: 'An error occurred' },
 });
 
-store.dispatch({
-  type: 'apiCallBegan',
-  payload: {
+store.dispatch(
+  apiRequestBegan({
     url: '/users',
-    onSuccess: 'TODOS_RECEIVED',
-    onError: 'apiRequestFailed',
-  },
-});
+  }),
+);
