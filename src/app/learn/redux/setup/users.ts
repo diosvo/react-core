@@ -11,11 +11,15 @@ interface User {
 // ✨ Slice
 const userSlice = createSlice({
   name: 'user',
-  initialState: [] as Array<User>,
+  initialState: {
+    list: [] as Array<User>,
+    loading: false,
+    lastFetch: null as number | null, // timestamp of the last fetch
+  },
   reducers: {
     add: {
       reducer: (state, action: PayloadAction<User>) => {
-        state.push(action.payload);
+        state.list.push(action.payload);
       },
       prepare: (name: string) => {
         const id = nanoid();
@@ -31,7 +35,7 @@ export default userSlice.reducer;
 export const getUserIdByName = (name: string) =>
   createSelector(
     // input
-    (state: RootState) => state.entities.users,
+    (state: RootState) => state.entities.users.list,
     // output: return the result from the cache
     (users) => {
       const user = users.find((user) => user.name === name);
