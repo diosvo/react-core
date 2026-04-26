@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit';
 
+import { apiRequestBegan } from './api';
 import { RootState } from './store';
 
 interface User {
@@ -17,6 +18,9 @@ const userSlice = createSlice({
     lastFetch: null as number | null, // timestamp of the last fetch
   },
   reducers: {
+    received: (state, action) => {
+      state.list = action.payload;
+    },
     add: {
       reducer: (state, action: PayloadAction<User>) => {
         state.list.push(action.payload);
@@ -29,9 +33,18 @@ const userSlice = createSlice({
   },
 });
 
-export const { add } = userSlice.actions;
+export const { add, received } = userSlice.actions;
 export default userSlice.reducer;
 
+// 💡 UI layer solution - Action creator
+const url = '/users';
+export const loadUsers = () =>
+  apiRequestBegan({
+    url,
+    onSuccess: received.type,
+  });
+
+// Selector + Memoization
 export const getUserIdByName = (name: string) =>
   createSelector(
     // input

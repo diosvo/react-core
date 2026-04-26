@@ -3,9 +3,8 @@ import store from '../setup/store';
 import { addBug, assignBugToUser } from '../setup/actions';
 import { getBugsByUser, getUnresolvedBugs } from '../setup/reducer';
 
-import { apiRequestBegan } from '../setup/api';
 import { decrement, increment, incrementByAmount } from '../setup/slices';
-import { add as addUser, getUserIdByName } from '../setup/users';
+import { add as addUser, getUserIdByName, loadUsers } from '../setup/users';
 
 const unsubcribe = store.subscribe(() =>
   console.log('Store changed!', store.getState()),
@@ -58,8 +57,16 @@ store.dispatch({
   payload: { message: 'An error occurred' },
 });
 
-store.dispatch(
-  apiRequestBegan({
-    url: '/users',
-  }),
-);
+// 🤔 Problem
+// Don't know:
+// - what endpoint should call
+// - what actions should dispatch on success or failure
+// store.dispatch(
+//   apiRequestBegan({
+//     url: '/users',
+//     onSuccess: 'user/received',
+//   }),
+// );
+
+// Solution ^ - Move to specific slice to avoid hardcode
+store.dispatch(loadUsers());
