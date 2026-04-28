@@ -1,17 +1,27 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { Middleware } from '@reduxjs/toolkit';
+
+import { RootState } from '../store';
+import { ApiRequest } from '../types';
+
 import { apiRequestBegan, apiRequestFailed, apiRequestSuccess } from '../api';
 
-const api =
+const api: Middleware<{}, RootState> =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    if (action.type !== apiRequestBegan.type) return next(action);
+    const typedAction = action as PayloadAction<ApiRequest>;
+
+    if (typedAction.type !== apiRequestBegan.type) return next(action);
+    if (!typedAction.payload) return;
+
+    const { url, method, data, onStart, onSuccess, onError } =
+      typedAction.payload;
+
+    if (onStart) dispatch({ type: onStart });
 
     // Pass the action to the next middleware or reducers (dispatch success or failure actions)
     next(action);
-
-    if (!action.payload) return;
-
-    const { url, method, data, onSuccess, onError } = action.payload;
 
     // Call the API
     try {

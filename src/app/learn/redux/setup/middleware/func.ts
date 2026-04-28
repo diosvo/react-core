@@ -1,5 +1,9 @@
+import type { Middleware } from '@reduxjs/toolkit';
+
+import { RootState } from '../store';
+
 // Thunk / Func
-const func =
+const func: Middleware<{}, RootState> =
   ({ dispatch, getState }) =>
   (next) =>
   (action) => {
