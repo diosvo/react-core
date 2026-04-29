@@ -8,6 +8,7 @@ export type ApiRequest = Required<{
   Partial<{
     method: string;
     data: unknown;
+    onStart: string;
     onSuccess: string;
     onError: string;
   }>;

@@ -18,10 +18,18 @@ const userSlice = createSlice({
     lastFetch: null as number | null, // timestamp of the last fetch
   },
   reducers: {
+    requested: (state) => {
+      state.loading = true;
+    },
     received: (state, action) => {
       state.list = action.payload;
+      state.loading = false;
+      state.lastFetch = Date.now();
     },
-    add: {
+    requestFailed: (state) => {
+      state.loading = false;
+    },
+    addUser: {
       reducer: (state, action: PayloadAction<User>) => {
         state.list.push(action.payload);
       },
@@ -41,6 +49,9 @@ const url = '/users';
 export const loadUsers = () =>
   apiRequestBegan({
     url,
+    onStart: requested.type,
+    onSuccess: received.type,
+    onError: requestFailed.type,
     onSuccess: received.type,
   });
 
