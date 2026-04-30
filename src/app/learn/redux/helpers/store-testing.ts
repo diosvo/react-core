@@ -43,12 +43,14 @@ const y = getUnresolvedBugs(store.getState());
 
 unsubcribe(); // Stop listening to state changes
 
-// 🧨 Middleware
+//#region 🧨 Middleware
+// Let middleware take care of "everything" -- side effects and async logic
+
+// Call an API
+// Promise resolved => dispatch()
+// Promise rejected => dispatch()
 
 store.dispatch(() => {
-  // Call an API
-  // When the promise is resolved => dispatch()
-  // If the promise is rejected => dispatch()
   store.dispatch({ type: 'apiCallBegan', bugs: [1, 2, 3] });
 });
 
@@ -56,6 +58,10 @@ store.dispatch({
   type: 'error',
   payload: { message: 'An error occurred' },
 });
+
+//#endregion
+
+//#region ▶️ Interact with server
 
 // 🤔 Problem
 // Don't know:
@@ -70,3 +76,9 @@ store.dispatch({
 
 // Solution ^ - Move to specific slice to avoid hardcode
 store.dispatch(loadUsers());
+
+// 🤔 Problem
+// Duplicate code to call the same API in different places
+setTimeout(() => {
+  store.dispatch(loadUsers());
+}, 2000);

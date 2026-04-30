@@ -1,8 +1,10 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit';
 
+import { differenceInMinutes } from 'date-fns';
+
 import { apiRequestBegan } from './api';
-import { RootState } from './store';
+import { AppDispatch, RootState } from './store';
 
 interface User {
   id: string;
@@ -41,19 +43,32 @@ const userSlice = createSlice({
   },
 });
 
-export const { add, received } = userSlice.actions;
+export const { addUser, requested, requestFailed, received } =
+  userSlice.actions;
 export default userSlice.reducer;
 
 // 💡 UI layer solution - Action creator
 const url = '/users';
-export const loadUsers = () =>
+
+// POJO - () => {}
+export const _loadUsers = () =>
   apiRequestBegan({
     url,
     onStart: requested.type,
     onSuccess: received.type,
     onError: requestFailed.type,
-    onSuccess: received.type,
   });
+
+// 💿 Caching - () => fn(dispatch, getState) - Thunk
+export const loadUsers =
+  () => (dispatch: AppDispatch, getState: () => RootState) => {
+    const { lastFetch } = getState().entities.users;
+
+    const diffInMinutes = differenceInMinutes(Date.now(), lastFetch as number);
+    if (diffInMinutes < 10) return;
+
+    dispatch(_loadUsers());
+  };
 
 // Selector + Memoization
 export const getUserIdByName = (name: string) =>
