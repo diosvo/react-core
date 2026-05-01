@@ -70,6 +70,18 @@ export const loadUsers =
     dispatch(_loadUsers());
   };
 
+// 🚀 Save data to the server
+export const postUser = (name: string) => (dispatch: AppDispatch) => {
+  dispatch(
+    apiRequestBegan({
+      url,
+      method: 'POST',
+      data: { name },
+      onSuccess: addUser.type, // ✅
+    }),
+  );
+};
+
 // Selector + Memoization
 export const getUserIdByName = (name: string) =>
   createSelector(

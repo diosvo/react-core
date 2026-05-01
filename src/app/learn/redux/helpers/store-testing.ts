@@ -4,7 +4,7 @@ import { addBug, assignBugToUser } from '../setup/actions';
 import { getBugsByUser, getUnresolvedBugs } from '../setup/reducer';
 
 import { decrement, increment, incrementByAmount } from '../setup/slices';
-import { add as addUser, getUserIdByName, loadUsers } from '../setup/users';
+import { addUser, getUserIdByName, loadUsers, postUser } from '../setup/users';
 
 const unsubcribe = store.subscribe(() =>
   console.log('Store changed!', store.getState()),
@@ -82,3 +82,7 @@ store.dispatch(loadUsers());
 setTimeout(() => {
   store.dispatch(loadUsers());
 }, 2000);
+
+store.dispatch(postUser('Dios Vo'));
+
+//#endregion

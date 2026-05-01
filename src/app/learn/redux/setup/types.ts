@@ -6,7 +6,7 @@ export type ApiRequest = Required<{
   url: string;
 }> &
   Partial<{
-    method: string;
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
     data: unknown;
     onStart: string;
     onSuccess: string;
