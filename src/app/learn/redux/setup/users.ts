@@ -31,7 +31,8 @@ const userSlice = createSlice({
     requestFailed: (state) => {
       state.loading = false;
     },
-    addUser: {
+    // addUser (command) -> userAdded (event)
+    userAdded: {
       reducer: (state, action: PayloadAction<User>) => {
         state.list.push(action.payload);
       },
@@ -43,8 +44,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addUser, requested, requestFailed, received } =
-  userSlice.actions;
+const { userAdded, requested, requestFailed, received } = userSlice.actions;
 export default userSlice.reducer;
 
 // 💡 UI layer solution - Action creator
@@ -71,13 +71,13 @@ export const loadUsers =
   };
 
 // 🚀 Save data to the server
-export const postUser = (name: string) => (dispatch: AppDispatch) => {
+export const addUser = (name: string) => (dispatch: AppDispatch) => {
   dispatch(
     apiRequestBegan({
       url,
       method: 'POST',
       data: { name },
-      onSuccess: addUser.type, // ✅
+      onSuccess: userAdded.type, // ✅
     }),
   );
 };

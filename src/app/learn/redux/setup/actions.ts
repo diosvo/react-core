@@ -30,7 +30,7 @@ export function removeBug(id: number) {
   };
 }
 
-export function assignBugToUser(bugId: number, userId: Nullable<string>) {
+export function assignBugToUser(bugId: number, userId: Nullable<number>) {
   return {
     type: ASSIGN_BUG_TO_USER,
     payload: {
