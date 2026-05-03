@@ -30,8 +30,10 @@ export enum Sort {
 export type SortDirection = Lowercase<keyof typeof Sort>;
 export type ColumnDef<T> = Readonly<{
   label: string;
-  key: string;
-  renderCell: (row: T) => React.ReactNode;
-  comparator: (a: T, b: T, sortDirection: SortDirection) => number;
-}>;
+  key: string & keyof T;
+}> &
+  Partial<{
+    renderCell: (row: T) => React.ReactNode;
+    comparator: (a: T, b: T, sortDirection: SortDirection) => number;
+  }>;
 export type Columns<T> = ReadonlyArray<ColumnDef<T>>;

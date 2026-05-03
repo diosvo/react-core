@@ -5,16 +5,19 @@
 
 'use client';
 
-import './redux/helpers/store-testing';
+// import './redux/helpers/store-testing'; // 🧪 Uncomment to test the store
 
-//#region TESTING THE STORE
-
-//#endregion { bugs: [ { id: 1, description: 'Bug 1', resolved: false } ] }
+import { Provider } from 'react-redux';
+import store from './redux/setup/store';
 
 export default function LearnLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="max-w-7xl mx-auto">{children}</div>;
+  return (
+    <div className="max-w-7xl mx-auto">
+      <Provider store={store}>{children}</Provider>
+    </div>
+  );
 }

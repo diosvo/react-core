@@ -14,7 +14,7 @@ function sortFn<T>(
   data: Array<T>,
   columns: Columns<T>,
   field: Nullish<string>,
-  direction: SortDirection
+  direction: SortDirection,
 ) {
   // 👀 Reason for cloning the the array
   // Immutability and React State: Directly mutate an array in state using methods like Array.prototype.sort(), React might not detect the change because the array's reference remains the same, even though its contents have been reordered.
@@ -55,10 +55,10 @@ export default function DataTable<T extends { id: number }>({
     <table className="w-full">
       <thead className="align-top">
         <tr>
-          {columns.map(({ label, key }) => (
+          {columns.map(({ label, key, comparator }) => (
             <th
               key={key}
-              className="p-2 text-start hover:cursor-pointer hover:text-blue-600"
+              className={`p-2 text-start ${comparator ? 'cursor-pointer select-none' : ''} ${comparator ? 'hover:text-blue-600' : ''}`}
               onClick={() => {
                 if (sortField !== key) {
                   setSortField(key);
@@ -74,13 +74,15 @@ export default function DataTable<T extends { id: number }>({
             >
               <span className="flex items-center gap-2">
                 {label}
-                <span hidden={sortField !== key}>
-                  {sortDirection === Sort.ASC ? (
-                    <ChevronUp size={14} />
-                  ) : (
-                    <ChevronDown size={14} />
-                  )}
-                </span>
+                {comparator && (
+                  <span hidden={sortField !== key}>
+                    {sortDirection === Sort.ASC ? (
+                      <ChevronUp size={14} />
+                    ) : (
+                      <ChevronDown size={14} />
+                    )}
+                  </span>
+                )}
               </span>
             </th>
           ))}
@@ -91,7 +93,7 @@ export default function DataTable<T extends { id: number }>({
           <tr key={item.id}>
             {columns.map(({ key, renderCell }) => (
               <td key={key} className="p-2 text-start">
-                {renderCell(item)}
+                {renderCell ? renderCell(item) : (item[key] as React.ReactNode)}
               </td>
             ))}
           </tr>

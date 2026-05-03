@@ -1,3 +1,4 @@
+import UsersSlice from './components/Users';
 import { composeResult, pipeResult } from './helpers/functional-programming';
 import { updatedObject } from './helpers/immutability';
 
@@ -8,6 +9,8 @@ export default function ReduxPage() {
       <p>Compose: {composeResult}</p>
       <p>Pipe: {pipeResult}</p>
       <p>Updating objects: {updatedObject.address.city}</p>
+      <h1 className="text-2xl font-bold">Redux Store</h1>
+      <UsersSlice />
     </div>
   );
 }

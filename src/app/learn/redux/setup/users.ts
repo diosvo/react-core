@@ -1,15 +1,11 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSelector, createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { differenceInMinutes } from 'date-fns';
 
+import { User } from '@/lib/models';
 import { apiRequestBegan } from './api';
 import { AppDispatch, RootState } from './store';
-
-interface User {
-  id: string;
-  name: string;
-}
 
 // ✨ Slice
 const userSlice = createSlice({
@@ -37,8 +33,11 @@ const userSlice = createSlice({
         state.list.push(action.payload);
       },
       prepare: (name: string) => {
-        const id = nanoid();
-        return { payload: { id, name } };
+        const id = Math.floor(Math.random() * 10000);
+        const age = Math.floor(Math.random() * 50) + 20;
+        const occupation = 'Unknown';
+
+        return { payload: { id, name, age, occupation } };
       },
     },
   },
