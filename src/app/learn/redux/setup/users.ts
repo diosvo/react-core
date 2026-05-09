@@ -60,6 +60,25 @@ export const _loadUsers = () =>
     onError: requestFailed.type,
   });
 
+// #region 🤔 Problem of solitary tests
+// Change the implementation <> Behavior the same way
+// => Test failed
+export const _loadUsersWithoutMiddleware =
+  () => async (dispatch: AppDispatch) => {
+    dispatch(requested());
+
+    try {
+      const response = await fetch(
+        'https://jsonplaceholder.typicode.com' + url,
+      );
+      const result = await response.json();
+      dispatch(received(result));
+    } catch (error) {
+      dispatch(requestFailed());
+    }
+  };
+//#endregion
+
 // 💿 Caching - () => fn(dispatch, getState) - Thunk
 export const loadUsers =
   () => (dispatch: AppDispatch, getState: () => RootState) => {
