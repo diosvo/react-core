@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 const store = configureStore({
   reducer: rootReducer,
   // Must list all the middleware in the array
-  // middleware: () => getDefaultMiddleware new Tuple(logger, func),
+  // middleware: () => new Tuple(logger, func),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(logger, func, toast, api),
 });

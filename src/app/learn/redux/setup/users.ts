@@ -43,7 +43,9 @@ const userSlice = createSlice({
   },
 });
 
-const { userAdded, requested, requestFailed, received } = userSlice.actions;
+// Temp break encapsulation to export actions and reducer
+export const { userAdded, requested, requestFailed, received } =
+  userSlice.actions;
 export default userSlice.reducer;
 
 // 💡 UI layer solution - Action creator

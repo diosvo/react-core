@@ -22,7 +22,7 @@ store.dispatch(increment());
 store.dispatch(decrement());
 store.dispatch(incrementByAmount(5));
 
-//#region Selectors
+//#region [Selectors]
 
 // 🤔 Problem:
 // - Compute derived data could be complex
@@ -42,13 +42,14 @@ const y = getUnresolvedBugs(store.getState());
 
 unsubcribe(); // Stop listening to state changes
 
-//#region 🧨 Middleware
+//#region 🧨 [Middleware]
 // Let middleware take care of "everything" -- side effects and async logic
 
 // Call an API
 // Promise resolved => dispatch()
 // Promise rejected => dispatch()
 
+// Thunk
 store.dispatch(() => {
   store.dispatch({ type: 'apiCallBegan', bugs: [1, 2, 3] });
 });
@@ -60,7 +61,7 @@ store.dispatch({
 
 //#endregion
 
-//#region ▶️ Interact with server
+//#region ▶️ [Interact with server]
 
 // 🤔 Problem
 // Don't know:
