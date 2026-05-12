@@ -92,7 +92,7 @@ export const loadUsers =
 
 // 🚀 Save data to the server
 export const addUser = (name: string) => (dispatch: AppDispatch) => {
-  dispatch(
+  return dispatch(
     apiRequestBegan({
       url,
       method: 'POST',

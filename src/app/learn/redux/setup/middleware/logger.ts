@@ -7,7 +7,8 @@ const logger: Middleware<{}, RootState> = (_store) => (next) => (action) => {
   // console.log('[logger]', 'store', store);
   // console.log('[logger]', 'next', next);
   console.log('[logger]', 'action', typedAction.type);
-  next(action);
+  return next(action);
+  // logger > func > toast > api
 };
 
 // Currying

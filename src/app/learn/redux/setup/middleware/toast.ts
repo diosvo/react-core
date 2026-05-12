@@ -8,7 +8,7 @@ const toast: Middleware<{}, RootState> = (_store) => (next) => (action) => {
   if (typedAction.type === 'error') {
     console.log('[toastify]', typedAction.payload.message);
   } else {
-    next(typedAction);
+    return next(typedAction);
   }
 };
 

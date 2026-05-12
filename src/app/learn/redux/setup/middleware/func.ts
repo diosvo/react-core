@@ -8,9 +8,9 @@ const func: Middleware<{}, RootState> =
   (next) =>
   (action) => {
     if (typeof action === 'function') {
-      action(dispatch, getState);
+      return action(dispatch, getState);
     } else {
-      next(action);
+      return next(action);
     }
   };
 
