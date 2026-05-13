@@ -26,14 +26,24 @@ describe('usersSlice', () => {
   });
 
   describe('social tests', () => {
+    // ❌ Should not:
+    // - Touch external resources (e.g. API) - Slow down
+    // - External resources may be unavailable (e.g. API down) - Unreliable
+
     test('handles addUser action', async () => {
+      const name = 'Dios Vo';
+      const savedUser = { id: 1, name };
+      global.fetch = jest.fn(() =>
+        Promise.resolve({
+          json: () => Promise.resolve(savedUser),
+        }),
+      );
+
       // dispatch(addUser) => store
-      const user = 'Dios Vo';
-
       // Empty without async/await (because of 'api' middleware)
-      await store.dispatch(addUser(user));
+      await store.dispatch(addUser(name));
 
-      expect(store.getState().entities.users.list).toHaveLength(1);
+      expect(store.getState().entities.users.list).toContainEqual(savedUser);
     });
   });
 });
