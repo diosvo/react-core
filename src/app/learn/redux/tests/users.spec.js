@@ -31,6 +31,7 @@ describe('usersSlice', () => {
     // - External resources may be unavailable (e.g. API down) - Unreliable
 
     test('handles addUser action', async () => {
+      // [Arrange]
       const name = 'Dios Vo';
       const savedUser = { id: 1, name };
       global.fetch = jest.fn(() =>
@@ -39,10 +40,12 @@ describe('usersSlice', () => {
         }),
       );
 
+      // [Act]
       // dispatch(addUser) => store
       // Empty without async/await (because of 'api' middleware)
       await store.dispatch(addUser(name));
 
+      // [Assert]
       expect(store.getState().entities.users.list).toContainEqual(savedUser);
     });
   });
