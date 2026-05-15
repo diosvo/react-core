@@ -1,5 +1,5 @@
 import { apiRequestBegan } from '../setup/api';
-import store from '../setup/store';
+import { makeStore } from '../setup/store';
 import {
   _loadUsersWithoutMiddleware,
   addUser,
@@ -30,15 +30,35 @@ describe('usersSlice', () => {
     // - Touch external resources (e.g. API) - Slow down
     // - External resources may be unavailable (e.g. API down) - Unreliable
 
-    test('handles addUser action', async () => {
-      // [Arrange]
-      const name = 'Dios Vo';
-      const savedUser = { id: 1, name };
+    let store;
+
+    const mockAPISuccess = (response) => {
       global.fetch = jest.fn(() =>
         Promise.resolve({
-          json: () => Promise.resolve(savedUser),
+          json: () => Promise.resolve(response),
         }),
       );
+    };
+
+    const mockAPIFailure = ({ message }) => {
+      global.fetch = jest.fn(() =>
+        Promise.resolve({
+          json: () => Promise.reject(message),
+        }),
+      );
+    };
+
+    beforeEach(() => {
+      store = makeStore();
+    });
+
+    const name = 'Dios Vo';
+    const useresSlice = () => store.getState().entities.users;
+
+    test("adds the user to the store if it's saved to server", async () => {
+      // [Arrange]
+      const savedUser = { id: 1, name };
+      mockAPISuccess(savedUser);
 
       // [Act]
       // dispatch(addUser) => store
@@ -46,7 +66,15 @@ describe('usersSlice', () => {
       await store.dispatch(addUser(name));
 
       // [Assert]
-      expect(store.getState().entities.users.list).toContainEqual(savedUser);
+      expect(useresSlice().list).toContainEqual(savedUser);
+    });
+
+    test("does not add the user to the store if it's saved to server", async () => {
+      mockAPIFailure({ message: 'Network error' });
+
+      await store.dispatch(addUser(name));
+
+      expect(useresSlice().list).toHaveLength(0);
     });
   });
 });

@@ -11,14 +11,16 @@ const rootReducer = combineReducers({
   entities: entitiesReducer,
 });
 
-const store = configureStore({
-  reducer: rootReducer,
-  // Must list all the middleware in the array
-  // middleware: () => new Tuple(logger, func),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger, func, toast, api),
-});
+export const makeStore = () =>
+  configureStore({
+    reducer: rootReducer,
+    // Must list all the middleware in the array
+    // middleware: () => new Tuple(logger, func),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(logger, func, toast, api),
+  });
 
+const store = makeStore();
 export default store;
 
 // Get the type of our store variable
