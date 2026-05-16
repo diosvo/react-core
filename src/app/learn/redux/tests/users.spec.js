@@ -3,6 +3,7 @@ import { makeStore } from '../setup/store';
 import {
   _loadUsersWithoutMiddleware,
   addUser,
+  getUserIdByName,
   received,
   requested,
   requestFailed,
@@ -53,11 +54,19 @@ describe('usersSlice', () => {
     });
 
     const name = 'Dios Vo';
-    const useresSlice = () => store.getState().entities.users;
+    const savedUser = { id: 1, name };
+
+    const usersSlice = () => store.getState().entities.users;
+    const createState = () => ({
+      entities: {
+        users: {
+          list: [],
+        },
+      },
+    });
 
     test("adds the user to the store if it's saved to server", async () => {
       // [Arrange]
-      const savedUser = { id: 1, name };
       mockAPISuccess(savedUser);
 
       // [Act]
@@ -66,7 +75,7 @@ describe('usersSlice', () => {
       await store.dispatch(addUser(name));
 
       // [Assert]
-      expect(useresSlice().list).toContainEqual(savedUser);
+      expect(usersSlice().list).toContainEqual(savedUser);
     });
 
     test("does not add the user to the store if it's saved to server", async () => {
@@ -74,7 +83,18 @@ describe('usersSlice', () => {
 
       await store.dispatch(addUser(name));
 
-      expect(useresSlice().list).toHaveLength(0);
+      expect(usersSlice().list).toHaveLength(0);
+    });
+
+    describe('selectors', () => {
+      test('getUserIdByName', () => {
+        const state = createState();
+        state.entities.users.list = [savedUser];
+
+        const result = getUserIdByName(name)(state);
+
+        expect(result).toBe(savedUser.id);
+      });
     });
   });
 });
