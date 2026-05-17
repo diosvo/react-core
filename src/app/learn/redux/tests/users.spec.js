@@ -1,6 +1,7 @@
 import { apiRequestBegan } from '../setup/api';
 import { makeStore } from '../setup/store';
 import {
+  _loadUsers,
   _loadUsersWithoutMiddleware,
   addUser,
   getUserIdByName,
@@ -94,6 +95,16 @@ describe('usersSlice', () => {
         const result = getUserIdByName(name)(state);
 
         expect(result).toBe(savedUser.id);
+      });
+    });
+
+    describe('API', () => {
+      test('get users from server', async () => {
+        mockAPISuccess([savedUser]);
+
+        const result = await store.dispatch(_loadUsers());
+
+        expect(store.getState().entities.users.list).toEqual([savedUser]);
       });
     });
   });
