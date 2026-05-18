@@ -5,6 +5,7 @@ import {
   _loadUsersWithoutMiddleware,
   addUser,
   getUserIdByName,
+  loadUsers,
   received,
   requested,
   requestFailed,
@@ -105,6 +106,38 @@ describe('usersSlice', () => {
         const result = await store.dispatch(_loadUsers());
 
         expect(store.getState().entities.users.list).toEqual([savedUser]);
+      });
+
+      describe('loadUsers', () => {
+        describe('if they exist in the cache', () => {});
+
+        describe("if they don't exist in the cache", () => {
+          describe('loading indicator', () => {
+            test('is true while loading', () => {
+              mockAPISuccess([savedUser]);
+
+              store.dispatch(loadUsers());
+
+              expect(usersSlice().loading).toBe(true);
+            });
+
+            test('is false after users are fetched', async () => {
+              mockAPISuccess([savedUser]);
+
+              await store.dispatch(loadUsers());
+
+              expect(usersSlice().loading).toBe(false);
+            });
+
+            test('is false if the server failed', async () => {
+              mockAPIFailure({ message: 'Network error' });
+
+              await store.dispatch(loadUsers());
+
+              expect(usersSlice().loading).toBe(false);
+            });
+          });
+        });
       });
     });
   });

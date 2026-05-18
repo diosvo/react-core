@@ -87,7 +87,7 @@ export const loadUsers =
     const diffInMinutes = differenceInMinutes(Date.now(), lastFetch as number);
     if (diffInMinutes < 10) return;
 
-    dispatch(_loadUsers());
+    return dispatch(_loadUsers());
   };
 
 // 🚀 Save data to the server
