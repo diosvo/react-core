@@ -109,9 +109,26 @@ describe('usersSlice', () => {
       });
 
       describe('loadUsers', () => {
-        describe('if they exist in the cache', () => {});
+        describe('if they exist in the cache', () => {
+          test('they should not be fetched from the server again', async () => {
+            mockAPISuccess([savedUser]);
+
+            await store.dispatch(loadUsers());
+            await store.dispatch(loadUsers());
+
+            expect(global.fetch).toHaveBeenCalledTimes(1);
+          });
+        });
 
         describe("if they don't exist in the cache", () => {
+          test('they should not be fetched from the server again', async () => {
+            mockAPISuccess([savedUser]);
+
+            await store.dispatch(loadUsers());
+
+            expect(usersSlice().list).toHaveLength(1);
+          });
+
           describe('loading indicator', () => {
             test('is true while loading', () => {
               mockAPISuccess([savedUser]);
