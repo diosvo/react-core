@@ -6,6 +6,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 import './globals.css';
 
@@ -41,7 +42,7 @@ export default function RootLayout({
             <AppSidebar />
             <main className="flex-1">
               <SidebarTrigger />
-              {children}
+              <TooltipProvider>{children}</TooltipProvider>
             </main>
           </SidebarProvider>
           <Toaster richColors position="top-center" />
