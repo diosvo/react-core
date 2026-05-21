@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import { Columns, Sort, SortDirection } from '@/lib/models';
 
 function sortFn<T>(
@@ -38,9 +39,13 @@ function paginateFn<T>(data: Array<T>, page: number, pageSize: number) {
 export default function DataTable<T extends { id: number }>({
   data,
   columns,
+  loading,
+  renderActions,
 }: Readonly<{
   data: Array<T>;
   columns: Columns<T>;
+  loading?: boolean;
+  renderActions?: (row: T) => React.ReactNode;
 }>) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
@@ -86,22 +91,46 @@ export default function DataTable<T extends { id: number }>({
               </span>
             </th>
           ))}
+          {renderActions && <th className="p-2">Actions</th>}
         </tr>
       </thead>
       <tbody className="border-y border-b-gray-200">
-        {currentData.map((item) => (
-          <tr key={item.id}>
-            {columns.map(({ key, renderCell }) => (
-              <td key={key} className="p-2 text-start">
-                {renderCell ? renderCell(item) : (item[key] as React.ReactNode)}
-              </td>
+        {loading
+          ? Array.from({ length: pageSize }).map((_, index) => (
+              <tr key={index}>
+                {columns.map(({ key }) => (
+                  <td key={key} className="p-2">
+                    <Skeleton className="size-6 rounded-md w-full" />
+                  </td>
+                ))}
+                {renderActions && (
+                  <td className="p-2">
+                    <Skeleton className="size-6 rounded-md w-full" />
+                  </td>
+                )}
+              </tr>
+            ))
+          : currentData.map((item) => (
+              <tr key={item.id}>
+                {columns.map(({ key, renderCell }) => (
+                  <td key={key} className="p-2 text-start">
+                    {renderCell
+                      ? renderCell(item)
+                      : (item[key] as React.ReactNode)}
+                  </td>
+                ))}
+                {renderActions && (
+                  <td className="p-2 text-center">{renderActions(item)}</td>
+                )}
+              </tr>
             ))}
-          </tr>
-        ))}
       </tbody>
       <tfoot>
         <tr>
-          <td className="gap-8 p-2" colSpan={columns.length}>
+          <td
+            className="gap-8 p-2"
+            colSpan={columns.length + (renderActions ? 1 : 0)}
+          >
             <div className="flex justify-end items-center gap-8">
               <div>
                 <span className="text-gray-600">Rows per page:</span>
