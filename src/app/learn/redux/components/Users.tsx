@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Columns, User } from '@/lib/models';
 
 import store, { RootState } from '../setup/store';
-import { loadUsers } from '../setup/users';
+import { deleteUser, loadUsers } from '../setup/users';
 
 const userColumns: Columns<User> = [
   {
@@ -40,7 +40,11 @@ export default function UsersSlice() {
       loading={loading}
       renderActions={(user: User) => (
         <>
-          <Button size="icon" variant="destructive">
+          <Button
+            size="icon"
+            variant="destructive"
+            onClick={() => store.dispatch(deleteUser(user.id))}
+          >
             <Trash2 />
           </Button>
         </>

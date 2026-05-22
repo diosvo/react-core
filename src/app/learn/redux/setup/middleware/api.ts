@@ -15,8 +15,14 @@ const api: Middleware<{}, RootState> =
     if (typedAction.type !== apiRequestBegan.type) return next(action);
     if (!typedAction.payload) return;
 
-    const { url, method, data, onStart, onSuccess, onError } =
-      typedAction.payload;
+    const {
+      url,
+      method = 'GET',
+      data,
+      onStart,
+      onSuccess,
+      onError,
+    } = typedAction.payload;
 
     if (onStart) dispatch({ type: onStart });
 

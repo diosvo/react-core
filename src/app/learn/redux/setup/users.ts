@@ -40,11 +40,14 @@ const userSlice = createSlice({
         return { payload: { id, name, age, occupation } };
       },
     },
+    userDeleted: (state, action: PayloadAction<number>) => {
+      state.list = state.list.filter((user) => user.id !== action.payload);
+    },
   },
 });
 
 // Temp break encapsulation to export actions and reducer
-export const { userAdded, requested, requestFailed, received } =
+export const { userAdded, userDeleted, requested, requestFailed, received } =
   userSlice.actions;
 export default userSlice.reducer;
 
@@ -100,6 +103,13 @@ export const addUser = (name: string) => (dispatch: AppDispatch) => {
       onSuccess: userAdded.type, // ✅
     }),
   );
+};
+
+export const deleteUser = (id: number) => async (dispatch: AppDispatch) => {
+  await fetch(`https://jsonplaceholder.typicode.com/${url}/${id}`, {
+    method: 'DELETE',
+  });
+  dispatch(userDeleted(id));
 };
 
 // Selector + Memoization
