@@ -4,6 +4,7 @@ import {
   _loadUsers,
   _loadUsersWithoutMiddleware,
   addUser,
+  deleteUser,
   getUserIdByName,
   loadUsers,
   received,
@@ -154,6 +155,17 @@ describe('usersSlice', () => {
               expect(usersSlice().loading).toBe(false);
             });
           });
+        });
+      });
+
+      describe('deleteUser', () => {
+        test('deletes user successfully', async () => {
+          const state = createState();
+          state.entities.users.list = [savedUser];
+
+          await store.dispatch(deleteUser(savedUser.id));
+
+          expect(usersSlice().list).toHaveLength(0);
         });
       });
     });

@@ -106,10 +106,14 @@ export const addUser = (name: string) => (dispatch: AppDispatch) => {
 };
 
 export const deleteUser = (id: number) => async (dispatch: AppDispatch) => {
-  await fetch(`https://jsonplaceholder.typicode.com/${url}/${id}`, {
-    method: 'DELETE',
-  });
-  dispatch(userDeleted(id));
+  return dispatch(
+    apiRequestBegan({
+      url: url + '/' + id,
+      method: 'DELETE',
+      data: id,
+      onSuccess: userDeleted.type,
+    }),
+  );
 };
 
 // Selector + Memoization

@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Middleware } from '@reduxjs/toolkit';
+import { isEqual } from 'lodash';
 
 import { RootState } from '../store';
 import { ApiRequest } from '../types';
@@ -35,7 +36,9 @@ const api: Middleware<{}, RootState> =
         'https://jsonplaceholder.typicode.com' + url,
         {
           method,
-          body: JSON.stringify(data),
+          body: !['GET', 'DELETE'].includes(method)
+            ? JSON.stringify(data)
+            : null,
           headers: {
             'Content-type': 'application/json; charset=UTF-8',
           },
@@ -45,7 +48,12 @@ const api: Middleware<{}, RootState> =
       // General
       dispatch(apiRequestSuccess(result));
       // Specific
-      if (onSuccess) dispatch({ type: onSuccess, payload: result });
+      // Support passing data to populate inside the reducer
+      if (onSuccess)
+        dispatch({
+          type: onSuccess,
+          payload: isEqual(method, 'DELETE') ? data : result,
+        });
     } catch (error) {
       // General
       dispatch(apiRequestFailed((error as Error).message));
