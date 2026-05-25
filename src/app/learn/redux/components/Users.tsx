@@ -3,14 +3,16 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Trash2 } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 import DataTable from '@/app/ui/table';
-import { Button } from '@/components/ui/button';
 import { Columns, User } from '@/lib/models';
 
 import store, { RootState } from '../setup/store';
-import { deleteUser, loadUsers } from '../setup/users';
+import { addUser, deleteUser, loadUsers } from '../setup/users';
 
 const userColumns: Columns<User> = [
   {
@@ -33,22 +35,39 @@ export default function UsersSlice() {
     (state: RootState) => state.entities.users,
   );
 
+  const handleSubmit = (formData: FormData) => {
+    const name = formData.get('name') as string;
+    store.dispatch(addUser(name));
+  };
+
   return (
-    <DataTable
-      data={list}
-      columns={userColumns}
-      loading={loading}
-      renderActions={(user: User) => (
-        <>
-          <Button
-            size="icon"
-            variant="destructive"
-            onClick={() => store.dispatch(deleteUser(user.id))}
-          >
-            <Trash2 />
+    <>
+      <div className="w-full max-w-md">
+        <form className="flex gap-2" action={handleSubmit}>
+          <Input name="name" placeholder="Name" required />
+          <Button type="submit">
+            <Plus />
+            Add
           </Button>
-        </>
-      )}
-    />
+        </form>
+      </div>
+
+      <DataTable
+        data={list}
+        columns={userColumns}
+        loading={loading}
+        renderActions={(user: User) => (
+          <>
+            <Button
+              size="icon"
+              variant="destructive"
+              onClick={() => store.dispatch(deleteUser(user.id))}
+            >
+              <Trash2 />
+            </Button>
+          </>
+        )}
+      />
+    </>
   );
 }
