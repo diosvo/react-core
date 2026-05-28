@@ -30,8 +30,9 @@ const userSlice = createSlice({
     // addUser (command) -> userAdded (event)
     userAdded: {
       reducer: (state, action: PayloadAction<User>) => {
-        state.list.push(action.payload);
+        state.list = [action.payload, ...state.list];
       },
+      // Cannot use with API response because the ID is generated on the server.
       prepare: (name: string) => {
         const id = Math.floor(Math.random() * 10000);
         const age = Math.floor(Math.random() * 50) + 20;
@@ -40,6 +41,14 @@ const userSlice = createSlice({
         return { payload: { id, name, age, occupation } };
       },
     },
+    userUpdated: (state, action: PayloadAction<User>) => {
+      const { id, ...data } = action.payload;
+      const user = state.list.find((user) => user.id === id);
+
+      if (user) {
+        Object.assign(user, data);
+      }
+    },
     userDeleted: (state, action: PayloadAction<number>) => {
       state.list = state.list.filter((user) => user.id !== action.payload);
     },
@@ -47,8 +56,14 @@ const userSlice = createSlice({
 });
 
 // Temp break encapsulation to export actions and reducer
-export const { userAdded, userDeleted, requested, requestFailed, received } =
-  userSlice.actions;
+export const {
+  userAdded,
+  userUpdated,
+  userDeleted,
+  requested,
+  requestFailed,
+  received,
+} = userSlice.actions;
 export default userSlice.reducer;
 
 // 💡 UI layer solution - Action creator
@@ -104,6 +119,18 @@ export const addUser = (name: string) => (dispatch: AppDispatch) => {
     }),
   );
 };
+
+export const updateUser =
+  (data: Partial<Omit<User, 'id'>>) => (dispatch: AppDispatch) => {
+    return dispatch(
+      apiRequestBegan({
+        url,
+        method: 'PATCH',
+        data,
+        onSuccess: userUpdated.type, // ✅
+      }),
+    );
+  };
 
 export const deleteUser = (id: number) => async (dispatch: AppDispatch) => {
   return dispatch(
