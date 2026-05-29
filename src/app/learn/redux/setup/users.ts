@@ -121,12 +121,12 @@ export const addUser = (name: string) => (dispatch: AppDispatch) => {
 };
 
 export const updateUser =
-  (data: Partial<Omit<User, 'id'>>) => (dispatch: AppDispatch) => {
+  (id: number, name: string) => (dispatch: AppDispatch) => {
     return dispatch(
       apiRequestBegan({
-        url,
+        url: url + '/' + id,
         method: 'PATCH',
-        data,
+        data: { id, name },
         onSuccess: userUpdated.type, // ✅
       }),
     );
