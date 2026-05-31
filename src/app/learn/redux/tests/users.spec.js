@@ -10,6 +10,7 @@ import {
   received,
   requested,
   requestFailed,
+  updateUser,
 } from '../setup/users';
 
 describe('usersSlice', () => {
@@ -155,6 +156,31 @@ describe('usersSlice', () => {
               expect(usersSlice().loading).toBe(false);
             });
           });
+        });
+      });
+
+      describe('updateUser', () => {
+        const updatedName = 'New name';
+        const updatedUser = { ...savedUser, name: updatedName };
+
+        test("updates the user in the store if it's saved to server", async () => {
+          mockAPISuccess(savedUser);
+          await store.dispatch(addUser(name));
+
+          mockAPISuccess(updatedUser);
+          await store.dispatch(updateUser(savedUser.id, updatedName));
+
+          expect(usersSlice().list).toContainEqual(updatedUser);
+        });
+
+        test('does not update the user in the store if it fails to save to server', async () => {
+          mockAPISuccess(savedUser);
+          await store.dispatch(addUser(name));
+
+          mockAPIFailure({ message: 'Network error' });
+          await store.dispatch(updateUser(savedUser.id, updatedName));
+
+          expect(usersSlice().list).toContainEqual(savedUser);
         });
       });
 
