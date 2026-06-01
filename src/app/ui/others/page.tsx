@@ -32,7 +32,15 @@ import ContextWithReducer from './context';
 // useImperativeHandle
 import Playground from './use-imperative-handle/Playground';
 
+// useState
+import StarRating from './use-state/StarRating';
+
 const Items: Array<PropsWithChildren<CardItem>> = [
+  {
+    title: 'Star Rating',
+    description: 'A star rating component with hover/click effect.',
+    children: <StarRating star={2} />,
+  },
   {
     title: 'Holy Grail',
     description:
