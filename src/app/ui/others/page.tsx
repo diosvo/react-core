@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 import GridCard from '@/components/ListItems';
+import { Separator } from '@/components/ui/separator';
 
 // GreatFrontend
 import HolyGrail from './HolyGrail';
@@ -35,85 +36,120 @@ import Playground from './use-imperative-handle/Playground';
 // useState
 import StarRating from './use-state/StarRating';
 
-const Items: Array<PropsWithChildren<CardItem>> = [
-  {
-    title: 'Star Rating',
-    description: 'A star rating component with hover/click effect.',
-    children: <StarRating star={2} />,
-  },
-  {
-    title: 'Holy Grail',
-    description:
-      'A classic web layout with header, footer, nav, main, and sidebar.',
-    children: <HolyGrail />,
-  },
-  {
-    title: 'Tweet',
-    description: "Twitter's tweet UI.",
-    children: <Tweet />,
-  },
-  {
-    title: 'Timer',
-    description: 'Timer function',
-    children: <Timer />,
-  },
-  {
-    title: 'Preview Avatar',
-    description: 'Choose an image file and preview it.',
-    children: <PreviewAvatar />,
-  },
-  {
-    title: 'Fake WebSocket',
-    description: 'Call the event corresponding to each group .',
-    children: <FakeWebSocket />,
-  },
-  {
-    title: 'Reset Counter',
-    description: 'Rest to 0 when it exceeds 3.',
-    children: <ResetCoutner />,
-  },
-  {
-    title: 'A Stopwatch',
-    description: 'Start/ stop a timer.',
-    children: <Stopwatch />,
-  },
-  {
-    title: 'Memoization',
-    description: 'Avoid unnecessary re-renders with with memo and useCallback.',
-    children: <Memoization />,
-  },
-  {
-    title: 'Add Product',
-    description: 'Calculate total price.',
-    children: <AddProduct />,
-  },
-  {
-    title: 'Up & Down',
-    description: 'Basic reducer.',
-    children: <UpDownNumber />,
-  },
-  {
-    title: 'Todo List',
-    description: 'Add and delete jobs.',
-    children: <Todo />,
-  },
-  {
-    title: 'Toggle Theme',
-    description: 'Switch theme',
-    children: <Theme />,
-  },
-  {
-    title: 'Context + useReducer',
-    description: 'Todo List with Context and useReducer as Redux.',
-    children: <ContextWithReducer />,
-  },
-  {
-    title: 'Playground',
-    description: 'Play/ Pause video.',
-    children: <Playground />,
-  },
-];
+// Ordered from easiest to hardest concept.
+const GroupItems: Record<string, Array<PropsWithChildren<CardItem>>> = {
+  useState: [
+    {
+      title: 'Star Rating',
+      description: 'A star rating component with hover/click effect.',
+      children: <StarRating star={2} />,
+    },
+  ],
+  useEffect: [
+    {
+      title: 'Timer',
+      description: 'Timer function',
+      children: <Timer />,
+    },
+    {
+      title: 'Preview Avatar',
+      description: 'Choose an image file and preview it.',
+      children: <PreviewAvatar />,
+    },
+    {
+      title: 'Fake WebSocket',
+      description: 'Call the event corresponding to each group .',
+      children: <FakeWebSocket />,
+    },
+  ],
+  useRef: [
+    {
+      title: 'A Stopwatch',
+      description: 'Start/ stop a timer.',
+      children: <Stopwatch />,
+    },
+  ],
+  useLayoutEffect: [
+    {
+      title: 'Reset Counter',
+      description: 'Rest to 0 when it exceeds 3.',
+      children: <ResetCoutner />,
+    },
+  ],
+  Memoization: [
+    {
+      title: 'Memoization',
+      description:
+        'Avoid unnecessary re-renders with with memo and useCallback.',
+      children: <Memoization />,
+    },
+    {
+      title: 'Add Product',
+      description: 'Calculate total price.',
+      children: <AddProduct />,
+    },
+  ],
+  useReducer: [
+    {
+      title: 'Up & Down',
+      description: 'Basic reducer.',
+      children: <UpDownNumber />,
+    },
+    {
+      title: 'Todo List',
+      description: 'Add and delete jobs.',
+      children: <Todo />,
+    },
+    {
+      title: 'Toggle Theme',
+      description: 'Switch theme',
+      children: <Theme />,
+    },
+  ],
+  'useContext + useReducer': [
+    {
+      title: 'Context + useReducer',
+      description: 'Todo List with Context and useReducer as Redux.',
+      children: <ContextWithReducer />,
+    },
+  ],
+  useImperativeHandle: [
+    {
+      title: 'Playground',
+      description: 'Play/ Pause video.',
+      children: <Playground />,
+    },
+  ],
+  GreatFrontend: [
+    {
+      title: 'Holy Grail',
+      description:
+        'A classic web layout with header, footer, nav, main, and sidebar.',
+      children: <HolyGrail />,
+    },
+    {
+      title: 'Tweet',
+      description: "Twitter's tweet UI.",
+      children: <Tweet />,
+    },
+  ],
+};
 
 export default function OthersPage() {
-  return <GridCard items={Items} />;
+  return (
+    <div className="flex flex-col gap-10">
+      {Object.entries(GroupItems).map(([group, items]) => (
+        <section key={group}>
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-xl font-bold text-blue-500">{group}</h2>
+            <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+              {items.length}
+            </span>
+          </div>
+          <Separator className="mb-4" />
+          <GridCard items={items} />
+        </section>
+      ))}
+    </div>
+  );
 }
