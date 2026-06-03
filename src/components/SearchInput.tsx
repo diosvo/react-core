@@ -10,7 +10,13 @@ import {
 } from '@/components/ui/input-group';
 import { useSearchParams } from '@/lib/utils';
 
-export default function SearchInput() {
+export default function SearchInput({
+  prefix,
+  placeholder = 'Search...',
+}: Partial<{
+  prefix: string;
+  placeholder: string;
+}>) {
   const { query, setQuery } = useSearchParams();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,12 +34,12 @@ export default function SearchInput() {
     <InputGroup>
       <InputGroupInput
         value={query}
-        placeholder="State"
+        placeholder={placeholder}
         className="pl-1!"
         onChange={handleChange}
       />
-      <InputGroupAddon>
-        <InputGroupText>use</InputGroupText>
+      <InputGroupAddon align="inline-start">
+        <InputGroupText>{prefix}</InputGroupText>
       </InputGroupAddon>
       <InputGroupAddon align="inline-end">
         {query.length > 0 ? <X onClick={() => setQuery(null)} /> : <Search />}

@@ -9,7 +9,7 @@ export default function HookLayout({
   return (
     <Suspense>
       <div className="flex flex-col gap-4 max-w-7xl mx-auto w-full p-4">
-        <SearchInput />
+        <SearchInput prefix="use" placeholder="State" />
         {children}
       </div>
     </Suspense>

@@ -1,8 +1,5 @@
 import { PropsWithChildren } from 'react';
 
-import GridCard from '@/components/ListItems';
-import { Separator } from '@/components/ui/separator';
-
 // GreatFrontend
 import HolyGrail from './HolyGrail';
 import Tweet from './Tweet';
@@ -35,6 +32,9 @@ import Playground from './use-imperative-handle/Playground';
 
 // useState
 import StarRating from './use-state/StarRating';
+
+// Main
+import ListItems from './ListItems';
 
 // Ordered from easiest to hardest concept.
 const GroupItems: Record<string, Array<PropsWithChildren<CardItem>>> = {
@@ -138,18 +138,7 @@ const GroupItems: Record<string, Array<PropsWithChildren<CardItem>>> = {
 export default function OthersPage() {
   return (
     <div className="flex flex-col gap-10">
-      {Object.entries(GroupItems).map(([group, items]) => (
-        <section key={group}>
-          <div className="flex items-center gap-2 mb-3">
-            <h2 className="text-xl font-bold text-blue-500">{group}</h2>
-            <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
-              {items.length}
-            </span>
-          </div>
-          <Separator className="mb-4" />
-          <GridCard items={items} />
-        </section>
-      ))}
+      <ListItems items={GroupItems} />
     </div>
   );
 }
