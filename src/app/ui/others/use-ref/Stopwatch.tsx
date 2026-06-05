@@ -1,48 +1,118 @@
 'use client';
 
+import { useRef, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
-import { useEffect, useRef, useState } from 'react';
+
+const SECONDS_IN_MINUTE = 60;
+const MINUTES_IN_HOUR = 60;
+const MS_IN_SECOND = 1000;
+const MS_IN_MINUTE = SECONDS_IN_MINUTE * MS_IN_SECOND;
+const MS_IN_HOUR = MINUTES_IN_HOUR * SECONDS_IN_MINUTE * MS_IN_SECOND;
+
+function formatTime(timeParam: number) {
+  let time = timeParam;
+  const parts = {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    ms: 0,
+  };
+
+  if (time > MINUTES_IN_HOUR) {
+    parts.hours = Math.floor(time / MS_IN_HOUR);
+    time %= MS_IN_HOUR;
+  }
+
+  if (time > MS_IN_MINUTE) {
+    parts.minutes = Math.floor(time / MS_IN_MINUTE);
+    time %= MS_IN_MINUTE;
+  }
+
+  if (time > MS_IN_SECOND) {
+    parts.seconds = Math.floor(time / MS_IN_SECOND);
+    time %= MS_IN_SECOND;
+  }
+
+  parts.ms = time;
+
+  return parts;
+}
+
+function padTwoDigit(number: number) {
+  return number > 10 ? String(number) : `0${number}`;
+}
 
 export default function Stopwatch() {
-  const [count, setCount] = useState<number>(0);
-  const timerId = useRef<Nullable<number>>(null);
-  const prevCount = useRef<Nullable<number>>(null);
+  // Total time that passed so far
+  const [totalDuration, setTotalDuration] = useState(0);
+  // Timer id ID of active interval, if one is running
+  const [timerId, setTimerId] = useState(null);
+  const lastTickTiming = useRef<Nullable<number>>(null);
 
-  useEffect(() => {
-    // But after "count" changes, it will store the value
-    prevCount.current = count;
-  }, [count]);
+  // Derived state to determine if there's timer running
+  const isRunning = timerId !== null;
 
-  const handleStart = () => {
-    timerId.current = window.setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
-
-    console.log('Start -> ', count);
+  const startTimer = () => {
+    lastTickTiming.current = Date.now();
+    setTimerId(
+      window.setInterval(() => {
+        const now = Date.now();
+        const timePassed = now - (lastTickTiming.current ?? 0);
+        setTotalDuration(
+          (duration) =>
+            // Use the callback form of setState to ensure
+            // we are using the latest value of duration.
+            duration + timePassed,
+        );
+        lastTickTiming.current = now;
+      }, 1) as unknown as null,
+    );
   };
 
-  const handleStop = () => {
-    if (timerId.current) {
-      clearInterval(timerId.current);
+  const stopInterval = () => {
+    if (timerId) window.clearInterval(timerId);
+    setTimerId(null);
+  };
+
+  const resetTimer = () => {
+    stopInterval();
+    setTotalDuration(0);
+  };
+
+  const toggleTimer = () => {
+    if (isRunning) {
+      stopInterval();
+    } else {
+      startTimer();
     }
-
-    console.log('Stop -> ', count);
   };
 
-  const handleReset = () => {
-    setCount(0);
-
-    console.log('Reset -> ', count);
-  };
+  const formattedTime = formatTime(totalDuration);
 
   return (
     <div>
-      <p className="mb-2">{count}</p>
-      <Button onClick={handleStart}>Start</Button>
-      <Button variant="secondary" className="mx-2" onClick={handleStop}>
-        Stop
-      </Button>
-      <Button variant="destructive" onClick={handleReset}>
+      <button className="flex items-baseline gap-1" onClick={toggleTimer}>
+        {formattedTime.hours > 0 && (
+          <span>
+            <span className="text-lg">{formattedTime.hours}</span>
+            <small>h</small>
+          </span>
+        )}
+        {formattedTime.minutes > 0 && (
+          <span>
+            <span className="text-lg">{formattedTime.minutes}</span>
+            <small>m</small>
+          </span>
+        )}
+        <span>
+          <span className="text-lg">{formattedTime.seconds}</span>
+          <small>s</small>
+        </span>
+        <span>{padTwoDigit(Math.floor(formattedTime.ms / 10))}</span>
+      </button>
+      <Button onClick={toggleTimer}>{isRunning ? 'Stop' : 'Start'}</Button>
+      <Button variant="destructive" onClick={resetTimer} className="ml-2">
         Reset
       </Button>
     </div>
