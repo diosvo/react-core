@@ -31,6 +31,7 @@ import ContextWithReducer from './context';
 import Playground from './use-imperative-handle/Playground';
 
 // useState
+import LikeButton from './use-state/LikeButton';
 import StarRating from './use-state/StarRating';
 
 // Main
@@ -43,6 +44,11 @@ const GroupItems: Record<string, Array<PropsWithChildren<CardItem>>> = {
       title: 'Star Rating',
       description: 'A star rating component with hover/click effect.',
       children: <StarRating star={2} />,
+    },
+    {
+      title: 'Like Button',
+      description: 'Appearance changes based on the states',
+      children: <LikeButton />,
     },
   ],
   useEffect: [
