@@ -31,6 +31,7 @@ import ContextWithReducer from './context';
 import Playground from './use-imperative-handle/Playground';
 
 // useState
+import JobBoard from './use-state/JobBoard';
 import LikeButton from './use-state/LikeButton';
 import StarRating from './use-state/StarRating';
 
@@ -49,6 +50,11 @@ const GroupItems: Record<string, Array<PropsWithChildren<CardItem>>> = {
       title: 'Like Button',
       description: 'Appearance changes based on the states',
       children: <LikeButton />,
+    },
+    {
+      title: 'Job Board',
+      description: 'A job board that can filter jobs by category.',
+      children: <JobBoard />,
     },
   ],
   useEffect: [
