@@ -1,10 +1,7 @@
 import { Badge } from '@/components/ui/badge';
+import { Product } from '@/lib/models';
 
-export default function ProductCard({
-  product,
-}: {
-  product: { name: string; price: number; onSale: boolean; imageUrl: string };
-}) {
+export default function ProductCard({ product }: { product: Product }) {
   return (
     <article className="p-2">
       <img src={product.imageUrl} alt={product.name} />

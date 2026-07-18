@@ -22,6 +22,14 @@ export interface House {
   built_year: number;
 }
 
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  onSale: boolean;
+  imageUrl: string;
+}
+
 // Table
 export enum Sort {
   ASC = 'asc',

@@ -26,4 +26,22 @@ Understanding this explains every "weird" rule:
 
 **Why it matters.** Once we internalize that JSX is _just JavaScript expressions_, we stop memorizing rules and start reasoning. `{condition && <X/>}` isn't special syntax — it's a plain boolean expression that happens to evaluate to an element.
 
-**Real-world scenario.** Rendering a product card where the price, title, and a "sale" badge all come from data.
+**Scenario.** Rendering a product card where the price, title, and a "sale" badge all come from data.
+
+## [1.2](./foundations/1.2.tsx) Components and composition
+
+**Concept.** A component is a function that returns JSX. Components render other components. That's the entire mental model. Our whole UI is a tree of functions calling functions.
+
+**Why it matters.** Beginners write one giant component. Experienced developers break UIs into small, named, reusable pieces. The skill we're building is knowing _where to draw the boundaries_.
+
+**Scenario.** A product grid on an e-commerce page composes many ProductCards.
+
+### 👍🏻 Rules:
+
+Extract a component when a chunk of JSX
+
+- repeats
+- has its own logic/ state
+- make the parent hard to read
+
+Don't extract just because a function feels long

@@ -1,4 +1,4 @@
-import ProductCard from './foundations/1.1';
+import ProductGrid from './foundations/1.2';
 
 const products = [
   {
@@ -18,5 +18,5 @@ const products = [
 ];
 
 export default function BasicToAdvancedPage() {
-  return <ProductCard product={products[0]} />;
+  return <ProductGrid products={products} />;
 }
