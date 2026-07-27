@@ -1,11 +1,12 @@
 'use client';
 
+import { useQueryState } from 'nuqs';
+import { type PropsWithChildren } from 'react';
+
 import GridCard from '@/components/ListItems';
 import { Separator } from '@/components/ui/separator';
 
 import { useSearchParams } from '@/lib/utils';
-import { useQueryState } from 'nuqs';
-import { PropsWithChildren } from 'react';
 import FilterBar from './FilterBar';
 
 export default function ListItems({
@@ -16,14 +17,18 @@ export default function ListItems({
   const { query } = useSearchParams();
   const [group] = useQueryState('group');
 
-  console.log('group', group);
-
   const filteredItems = Object.entries(items).filter(([name, items]) => {
     const byGroup = group ? name === group : true;
     const byQuery = query
-      ? items.some((item) =>
-          item.title.toLowerCase().includes(query.toLowerCase()),
-        )
+      ? items.some((item) => {
+          const { title, description } = item;
+          const lowerQuery = query.toLowerCase();
+
+          return (
+            title.toLowerCase().includes(lowerQuery) ||
+            description.toLowerCase().includes(lowerQuery)
+          );
+        })
       : true;
 
     return byGroup && byQuery;
