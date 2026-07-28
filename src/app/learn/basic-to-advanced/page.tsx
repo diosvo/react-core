@@ -1,4 +1,5 @@
 import ProductGrid from './foundations/1.2';
+import PassingDataDown from './foundations/1.3';
 
 const products = [
   {
@@ -18,5 +19,10 @@ const products = [
 ];
 
 export default function BasicToAdvancedPage() {
-  return <ProductGrid products={products} />;
+  return (
+    <>
+      <ProductGrid products={products} />
+      <PassingDataDown />
+    </>
+  );
 }

@@ -45,3 +45,21 @@ Extract a component when a chunk of JSX
 - make the parent hard to read
 
 Don't extract just because a function feels long
+
+## [1.3](./foundations/1.3.tsx) Props: passing data down
+
+**Concept.** _one direction_: parent → child. A child can never modify its own props; they're read-only.
+
+**Why it matters.** When something on screen is wrong, we trace _up_ the tree to find where the data came from
+
+**Scenario.** A reusable button that changes label, style, and behavior purely through props.
+
+### 👍🏻 Rules:
+
+Extract a component when a chunk of JSX
+
+- repeats
+- has its own logic/ state
+- make the parent hard to read
+
+Don't extract just because a function feels long
