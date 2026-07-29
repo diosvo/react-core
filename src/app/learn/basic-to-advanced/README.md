@@ -63,3 +63,11 @@ Extract a component when a chunk of JSX
 - make the parent hard to read
 
 Don't extract just because a function feels long
+
+## [1.4](./foundations/1.2.tsx) List and keys
+
+**Concept.** Each items needs a stable, unique `key`
+
+**Why it matters.** Using the array **index** as a key breaks the moment we sort, filter or delete items. → React reuse the wrong DOM node and state gets attached to the wrong row.
+
+**Scenario.** Product list where items can be reorder or deleted.
