@@ -71,3 +71,12 @@ Don't extract just because a function feels long
 **Why it matters.** Using the array **index** as a key breaks the moment we sort, filter or delete items. → React reuse the wrong DOM node and state gets attached to the wrong row.
 
 **Scenario.** Product list where items can be reorder or deleted.
+
+## [1.5](./foundations/1.5.tsx) Conditional rendering
+
+**Concept.** Decide what to show: `&&`, ternaries (`? :`), or early `return`s.
+
+**Why it matters.** The difference between readable and spaghetti components.
+
+**Scenario.** A data panel handling the 3 or 4 states every real fetch has.
+
