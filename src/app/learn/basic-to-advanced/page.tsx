@@ -29,8 +29,8 @@ export default function BasicToAdvancedPage() {
       <PassingDataDown />
       5.
       <ConditionalRendering />
-      <ProductGrid products={products} />
-      <PassingDataDown />
+      6.
+      <HandlingEvents />
     </>
   );
 }

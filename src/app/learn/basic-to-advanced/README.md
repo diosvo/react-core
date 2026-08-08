@@ -80,3 +80,15 @@ Don't extract just because a function feels long
 
 **Scenario.** A data panel handling the 3 or 4 states every real fetch has.
 
+## [1.6](./foundations/1.5.tsx) Handling events
+
+**Concept.** `onClick`, `onChange`, `onSubmit` and pass a function - not call it!
+
+**Why it matters.**
+
+- `onClick=handleClick` - pass the function
+- `onClick=handleClick()` calls it during render - fire the handler immediately and infinitely.
+
+**Scenario.** A form submit that prevents the browser's default page reload.
+
+# LEVEL 2 — State and Interactivity
