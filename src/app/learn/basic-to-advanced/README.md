@@ -92,3 +92,32 @@ Don't extract just because a function feels long
 **Scenario.** A form submit that prevents the browser's default page reload.
 
 # LEVEL 2 — State and Interactivity
+
+## 2.1 `useState`
+
+**Concept.** State is data that changes over time and, when it changes, re-renders the component.
+
+**Why it matters.** This is _the_ fundamental React hook. Two rules that prevent 90% of state bugs:
+
+1. **Never mutate state directly.** `state.push(x)` won't re-render. Create a new value: `setItems([...items, x])`.
+2. **Use the updater function when the new state depends on the old one:** `setCount(c => c + 1)`. This avoids stale-value bugs when updates batch.
+
+**Real-world scenario.** A quantity selector in a cart.
+
+**Updating objects and arrays immutably** (the pattern we'll repeat constantly):
+
+```jsx
+// Object: copy, then override one field
+setUser((prev) => ({ ...prev, email: newEmail }));
+
+// Array add
+setItems((prev) => [...prev, newItem]);
+
+// Array remove
+setItems((prev) => prev.filter((item) => item.id !== targetId));
+
+// Array update one item
+setItems((prev) =>
+  prev.map((item) => (item.id === targetId ? { ...item, done: true } : item)),
+);
+```
