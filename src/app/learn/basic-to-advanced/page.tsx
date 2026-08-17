@@ -5,7 +5,8 @@ import ConditionalRendering from './foundations/1.5';
 import HandlingEvents from './foundations/1.6';
 
 // Level 2
-import QuantitySelector from './state-and-interactivity/2.1';
+import UseState from './state-and-interactivity/2.1';
+import ControlledForms from './state-and-interactivity/2.2';
 
 const products = [
   {
@@ -37,7 +38,8 @@ export default function BasicToAdvancedPage() {
       6.
       <HandlingEvents />
       <h2>Level 2. State and Interactive</h2>
-      <QuantitySelector />
+      <UseState />
+      <ControlledForms />
     </>
   );
 }

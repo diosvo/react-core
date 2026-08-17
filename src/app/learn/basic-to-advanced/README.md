@@ -121,3 +121,11 @@ setItems((prev) =>
   prev.map((item) => (item.id === targetId ? { ...item, done: true } : item)),
 );
 ```
+
+## 2.2 Controlled forms
+
+**Concept.** A "controlled" input has its value driven by state.
+
+**Why it matters.** The standard for real forms because they let us validate, transform, disable, and reset from one place.
+
+**Real-world scenario.** A signup form with live validation.

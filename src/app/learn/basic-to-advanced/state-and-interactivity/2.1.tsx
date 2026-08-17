@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function QuantitySelector({ initial = 1 }) {
+export default function UseState({ initial = 1 }) {
   const [qty, setQty] = useState(initial);
 
   return (
